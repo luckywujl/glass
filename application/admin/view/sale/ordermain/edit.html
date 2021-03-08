@@ -1,0 +1,166 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_code" data-rule="required" class="form-control" name="row[order_code]" type="text" value="{$row.order_code|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_datetime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_datetime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD HH:mm:ss" data-use-current="true" name="row[order_datetime]" type="text" value="{:$row.order_datetime?datetime($row.order_datetime):''}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_delivery_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_delivery_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[order_delivery_date]" type="text" value="{$row.order_delivery_date}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_id" data-rule="required" data-source="order/custom/index" class="form-control selectpage" name="row[order_custom_id]" type="text" value="{$row.order_custom_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text" value="{$row.order_custom_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_contact')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_contact" class="form-control" name="row[order_custom_contact]" type="text" value="{$row.order_custom_contact|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_tel" class="form-control" name="row[order_custom_tel]" type="text" value="{$row.order_custom_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_address" class="form-control" name="row[order_custom_address]" type="text" value="{$row.order_custom_address|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_custom_discount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="{$row.order_custom_discount|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_number_total')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number" value="{$row.order_number_total|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_area_total')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number" value="{$row.order_area_total|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_length_total')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number" value="{$row.order_length_total|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_hole_total')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number" value="{$row.order_hole_total|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number" value="{$row.order_amount_total|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_receiver')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_receiver" class="form-control" name="row[order_receiver]" type="text" value="{$row.order_receiver|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_saleman')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_saleman" class="form-control" name="row[order_saleman]" type="text" value="{$row.order_saleman|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_operator')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_operator" class="form-control" name="row[order_operator]" type="text" value="{$row.order_operator|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_checker')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_checker" class="form-control" name="row[order_checker]" type="text" value="{$row.order_checker|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_dispatcher')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_dispatcher" class="form-control" name="row[order_dispatcher]" type="text" value="{$row.order_dispatcher|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_freight_type')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-order_freight_type" class="form-control selectpicker" name="row[order_freight_type]">
+                {foreach name="orderFreightTypeList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.order_freight_type"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_isdelivery')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-order_isdelivery" class="form-control selectpicker" name="row[order_isdelivery]">
+                {foreach name="orderIsdeliveryList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.order_isdelivery"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="orderStatusList" item="vo"}
+            <label for="row[order_status]-{$key}"><input id="row[order_status]-{$key}" name="row[order_status]" type="radio" value="{$key}" {in name="key" value="$row.order_status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_id" data-rule="required" data-source="company/index" class="form-control selectpage" name="row[company_id]" type="text" value="{$row.company_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

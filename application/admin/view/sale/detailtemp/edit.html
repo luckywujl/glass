@@ -1,0 +1,154 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Order_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-order_id" data-rule="required" data-source="order/index" class="form-control selectpage" name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_order_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_order_code" data-rule="required" class="form-control" name="row[detail_order_code]" type="text" value="{$row.detail_order_code|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_datetime')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_datetime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[detail_datetime]" type="text" value="{$row.detail_datetime}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_delivery_date')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_delivery_date" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[detail_delivery_date]" type="text" value="{$row.detail_delivery_date}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_isurgent')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <select  id="c-detail_isurgent" data-rule="required" class="form-control selectpicker" name="row[detail_isurgent]">
+                {foreach name="detailIsurgentList" item="vo"}
+                    <option value="{$key}" {in name="key" value="$row.detail_isurgent"}selected{/in}>{$vo}</option>
+                {/foreach}
+            </select>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_custom_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_custom_id" data-rule="required" data-source="detail/custom/index" class="form-control selectpage" name="row[detail_custom_id]" type="text" value="{$row.detail_custom_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_custom_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_custom_name" data-rule="required" class="form-control" name="row[detail_custom_name]" type="text" value="{$row.detail_custom_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_no')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_no" class="form-control" name="row[detail_no]" type="number" value="{$row.detail_no|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_product_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_product_name" data-rule="required" class="form-control" name="row[detail_product_name]" type="text" value="{$row.detail_product_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_product_specs')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_product_specs" data-rule="required" class="form-control" name="row[detail_product_specs]" type="text" value="{$row.detail_product_specs|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_price')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="{$row.detail_price|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_discount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="{$row.detail_discount|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_useposition')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="{$row.detail_useposition|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_long')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_long" data-rule="required" class="form-control" name="row[detail_long]" type="number" value="{$row.detail_long|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_wide')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_wide" data-rule="required" class="form-control" name="row[detail_wide]" type="number" value="{$row.detail_wide|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_number')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_number" data-rule="required" class="form-control" name="row[detail_number]" type="number" value="{$row.detail_number|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_area')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_area" data-rule="required" class="form-control" name="row[detail_area]" type="number" value="{$row.detail_area|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_length')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_length" class="form-control" name="row[detail_length]" type="number" value="{$row.detail_length|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_hole')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="{$row.detail_hole|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_amount')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_amount" class="form-control" name="row[detail_amount]" type="number" value="{$row.detail_amount|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_remark" class="form-control" name="row[detail_remark]" type="text" value="{$row.detail_remark|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_specification')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-detail_specification" class="form-control" name="row[detail_specification]" type="text" value="{$row.detail_specification|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_id')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_id" data-rule="required" data-source="company/index" class="form-control selectpage" name="row[company_id]" type="text" value="{$row.company_id|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,59 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_code')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-personnel_code" class="form-control" name="row[personnel_code]" type="text" value="{$row.personnel_code|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_name')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-personnel_name" class="form-control" name="row[personnel_name]" type="text" value="{$row.personnel_name|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_sex')}:</label>
+        <div class="col-xs-12 col-sm-8">
+                        
+            <div class="radio">
+            {foreach name="personnelSexList" item="vo"}
+            <label for="row[personnel_sex]-{$key}"><input id="row[personnel_sex]-{$key}" name="row[personnel_sex]" type="radio" value="{$key}" {in name="key" value="$row.personnel_sex"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-personnel_tel" class="form-control" name="row[personnel_tel]" type="text" value="{$row.personnel_tel|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_processes')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-personnel_processes" class="form-control selectpage" data-source="base/processes/index" data-field="processes_name" data-primary-key="processes_name" name="row[personnel_processes]" type="text" value="{$row.personnel_processes|htmlentities}">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Personnel_status')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            
+            <div class="radio">
+            {foreach name="personnelStatusList" item="vo"}
+            <label for="row[personnel_status]-{$key}"><input id="row[personnel_status]-{$key}" name="row[personnel_status]" type="radio" value="{$key}" {in name="key" value="$row.personnel_status"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>
+
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>
