@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:98:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/index.html";i:1615216581;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:98:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/index.html";i:1615301464;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -67,7 +67,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_code'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_code" data-rule="required" class="form-control" name="row[order_code]" type="text">
+            <input id="c-order_code"  class="form-control" name="row[order_code]" type="text">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_datetime'); ?>:</label>
@@ -79,16 +79,19 @@
         <div class="col-xs-12 col-sm-2">
             <input id="c-order_delivery_date" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[order_delivery_date]" type="text" value="<?php echo date('Y-m-d'); ?>">
         </div>
-
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_id'); ?>:</label>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_saleman'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_id" data-rule="required" data-source="order/custom/index" class="form-control selectpage" name="row[order_custom_id]" type="text" value="">
+            <input id="c-order_saleman" class="form-control selectpage" data-source="base/personnel/index" data-field="personnel_name" data-primary-key="personnel_name"  name="row[order_saleman]" type="text">
         </div>
     </div>
     <div class="form-group">
+        <div class="col-xs-12 col-sm-2" hidden="hidden">
+           <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text"> 
+        </div>
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_name'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text">
+            <input id="c-order_custom_id" data-rule="required"  class="form-control" name="row[order_custom_id]" type="text" value="">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_contact'); ?>:</label>
@@ -137,19 +140,7 @@
         <div class="col-xs-12 col-sm-2">
             <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number">
         </div>
-
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_receiver'); ?>:</label>
-        <div class="col-xs-12 col-sm-2">
-            <input id="c-order_receiver" class="form-control" name="row[order_receiver]" type="text">
-        </div>
-
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_saleman'); ?>:</label>
-        <div class="col-xs-12 col-sm-2">
-            <input id="c-order_saleman" class="form-control" name="row[order_saleman]" type="text">
-        </div>
-    </div>
-   
-    <div class="form-group">
+        
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_freight_type'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
             <div class="radio">
@@ -157,8 +148,6 @@
             <label for="row[order_freight_type]-<?php echo $key; ?>"><input id="row[order_freight_type]-<?php echo $key; ?>" name="row[order_freight_type]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), explode(',',"0"))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
             <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>            
-            
-
         </div>
    
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_isdelivery'); ?>:</label>
@@ -168,17 +157,18 @@
             <label for="row[order_isdelivery]-<?php echo $key; ?>"><input id="row[order_isdelivery]-<?php echo $key; ?>" name="row[order_isdelivery]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), explode(',',"0"))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
             <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>              
-            
-
-        </div>
+        </div> 
     </div>
-    
-    
+   
     <div class="form-group layer-footer">
-        <label class="control-label col-xs-12 col-sm-1"></label>
-        <div class="col-xs-12 col-sm-2">
-            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
-            <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="button" id="new"  class="btn btn-info btn-embossed btn-new"><?php echo __('新建'); ?></button>
+            <button type="button" class="btn btn-success btn-embossed btn-save"><?php echo __('暂存'); ?></button>  
+            <button type="button" id="save"  class="btn btn-success btn-embossed btn-savedraft"><?php echo __('保存草稿'); ?></button>
+            <button type="button" class="btn btn-info btn-printing  btn-embossed"><?php echo __('打印'); ?></button>
+            <button type="button" class="btn btn-success btn-embossed btn-verify"><?php echo __('审核过账'); ?></button>
+            <button type="button" class="btn btn-info btn-embossed btn-open"><?php echo __('打开草稿'); ?></button>
         </div>
     </div>
 </form>

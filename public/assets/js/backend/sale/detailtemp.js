@@ -1,9 +1,43 @@
-define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage'], function ($, undefined, Backend, Table, Form, Printing) {
 
     var Controller = {
     	
         index: function () {
+        	$(".btn-add").data("area",["90%","90%"]);
+        	//$(".btn-add").data("title",'添加');
+        
         	Controller.api.bindevent();
+        	//选择客户
+				$('#c-order_custom_id').selectPage({
+					showField:'custom_name',
+					keyField:'custom_id',
+					data:'sale/custominfo/index',
+ 					pageSize:10,
+ 					eAjaxSuccess:function (data) {
+ 						data.list = typeof data.rows !=='undefined' ? data.rows :(typeof data.list !== 'undefined' ? data.list : []);
+ 						data.totalRow = typeof data.total !== 'undefined' ? data.total :(typeof data.totalRow !== 'undefined' ? data.totalRow :data.list.length);
+ 						return data;
+ 					},
+					eSelect:function (data) {
+						$("#c-order_custom_name").val(data.custom_name);
+						Fast.api.ajax({
+							url:'sale/custominfo/getcustominfo',
+							data:{custom_id:data.custom_id}
+						},
+						function (data,ret) {
+							//填写客户信息
+							console.info(data);
+							//return false;
+							$("#c-order_custom_address").val(data.custom_address);
+							$("#c-order_custom_tel").val(data.custom_tel);
+							$("#c-order_custom_contact").val(data.custom_contact);
+							$("#c-order_custom_discount").val(data.custom_discount);
+						},function (data) {
+							//失败的回调
+							return false;
+						})
+					},
+				});
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -27,15 +61,13 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
-                        {field: 'detail_id', title: __('Detail_id')},
-                        {field: 'order_id', title: __('Order_id')},
-                        {field: 'detail_order_code', title: __('Detail_order_code'), operate: 'LIKE'},
+                        //{field: 'detail_id', title: __('Detail_id')},
+                        //{field: 'order_id', title: __('Order_id')},
+                        {field: 'detail_no', title: __('Detail_no')},
+                        //{field: 'detail_order_code', title: __('Detail_order_code'), operate: 'LIKE'},
                         {field: 'detail_datetime', title: __('Detail_datetime'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
                         {field: 'detail_delivery_date', title: __('Detail_delivery_date'), operate:'RANGE', addclass:'datetimerange', autocomplete:false},
-                        {field: 'detail_isurgent', title: __('Detail_isurgent'), searchList: {"0":__('Detail_isurgent 0'),"1":__('Detail_isurgent 1')}, formatter: Table.api.formatter.normal},
-                        {field: 'detail_custom_id', title: __('Detail_custom_id')},
-                        {field: 'detail_custom_name', title: __('Detail_custom_name'), operate: 'LIKE'},
-                        {field: 'detail_no', title: __('Detail_no')},
+                        {field: 'detail_isurgent', title: __('Detail_isurgent'), searchList: {"0":__('Detail_isurgent 0'),"1":__('Detail_isurgent 1')}, formatter: Table.api.formatter.normal}, 
                         {field: 'detail_product_name', title: __('Detail_product_name'), operate: 'LIKE'},
                         {field: 'detail_product_specs', title: __('Detail_product_specs'), operate: 'LIKE'},
                         {field: 'detail_price', title: __('Detail_price'), operate:'BETWEEN'},
@@ -50,7 +82,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'detail_amount', title: __('Detail_amount'), operate:'BETWEEN'},
                         {field: 'detail_remark', title: __('Detail_remark'), operate: 'LIKE'},
                         {field: 'detail_specification', title: __('Detail_specification'), operate: 'LIKE'},
-                        {field: 'company_id', title: __('Company_id'), operate: 'LIKE'},
+                        //{field: 'company_id', title: __('Company_id'), operate: 'LIKE'},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
@@ -60,6 +92,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         add: function () {
+        	 Form.api.bindevent($("form[role=form]"), function(data, ret) {
+       // Fast.api.close();
+       return false;
+    }, function(data, ret) {
+        Toastr.success("失败");
+    });
             Controller.api.bindevent();
         },
         edit: function () {
@@ -68,6 +106,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         api: {
             bindevent: function () {
                 Form.api.bindevent($("form[role=form]"));
+                return false;
             }
         }
     };

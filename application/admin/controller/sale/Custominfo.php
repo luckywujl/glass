@@ -21,6 +21,7 @@ class Custominfo extends Backend
     protected $dataLimitField = 'company_id';
     protected $dataCreateField = null;
     protected $searchFields = 'custom_name,custom_contact';
+    protected $noNeedRight = ['index','getcustominfo'];
 
     public function _initialize()
     {
@@ -39,6 +40,19 @@ class Custominfo extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
-    
+    public function getcustominfo()
+    {
+    	if (!empty($this->request->post("custom_id"))) {
+    		$custom_id = $this->request->post("custom_id");
+    		list($where,$sort,$order,$offset,$limit) = $this->buildparams();
+    		$custominfo = $this->model
+    			->where($where)
+    			->where('custom_id',$custom_id)
+    			->find();
+    			if($custominfo) {
+    				$this->success('成功获取客户信息',null,$custominfo); 
+    				}
+    	}
+    }
 
 }

@@ -25,6 +25,7 @@ return [
     'Detail_hole'          => '打孔数量',
     'Detail_amount'        => '金额',
     'Detail_specification' => '工艺要求',
+    'Detail_remark'			=> '备注',
     'Company_id'           => '数据归属',
     
     'Order_id'              => '订单ID',

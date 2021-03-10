@@ -98,9 +98,10 @@
    				 {foreach name="detailRemarkList" item="vo"}
                     <option value="{$vo.remark_name}" {/in}>{$vo.remark_name}</option>
                 {/foreach}
-				</datalist>  
+				</datalist>
+        <input type="text" class="form-control" name="feng_kong_cuo_shi_1" list="feng_kong_cuo_shi_1" maxlength="20">
 
-		 </div>
+</div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_specification')}:</label>
