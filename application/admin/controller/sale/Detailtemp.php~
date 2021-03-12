@@ -37,6 +37,7 @@ class Detailtemp extends Backend
         $this->view->assign("orderStatusList", $maintemp->getOrderStatusList());
         
         $this->view->assign("detailIsurgentList", $this->model->getDetailIsurgentList());
+        $this->view->assign("detailIsedgingList", $this->model->getDetailIsedgingList());
     }
 
     public function import()
@@ -123,6 +124,7 @@ class Detailtemp extends Backend
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        //为备注和工艺要求准备下拉数据
         $specification = new base\Specification();
         $remark = new base\Remark();
         list($where, $sort, $order, $offset, $limit) = $this->buildparams();
@@ -181,6 +183,7 @@ class Detailtemp extends Backend
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        //为备注和工艺要求准备下拉数据
         $specification = new base\Specification();
         $remark = new base\Remark();
         list($where, $sort, $order, $offset, $limit) = $this->buildparams();

@@ -37,6 +37,7 @@ class Detailtemp extends Backend
         $this->view->assign("orderStatusList", $maintemp->getOrderStatusList());
         
         $this->view->assign("detailIsurgentList", $this->model->getDetailIsurgentList());
+        $this->view->assign("detailIsedgingList", $this->model->getDetailIsedgingList());
     }
 
     public function import()
@@ -56,11 +57,10 @@ class Detailtemp extends Backend
     {
         //设置过滤方法
         $this->request->filter(['strip_tags', 'trim']);
-        list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+        
             $order_main_temp = new sale\Maintemp();
             $main_temp = $order_main_temp
-            	->where($where)
-            	->where(['order_operator'=>$this->auth->nickname])
+            	->where(['order_operator'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
             	->find();
         if ($this->request->isAjax()) {
             //如果发送的来源是Selectpage，则转发到Selectpage

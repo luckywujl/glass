@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:97:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/edit.html";i:1615471648;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:97:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/edit.html";i:1615569673;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -63,7 +63,7 @@
    
        
         <div class="col-xs-12 col-sm-2" hidden="hidden">
-            <input id="c-order_id"  data-source="order/index" class="form-control selectpage" name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
+            <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
         </div>
      <div class="form-group">
      &nbsp;
@@ -98,31 +98,37 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_product_name'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_product_name" data-rule="required" class="form-control" name="row[detail_product_name]" type="text" value="<?php echo htmlentities($row['detail_product_name']); ?>">
+            <input id="c-detail_product_name" data-rule="required" class="form-control selectpage" data-source="base/product/getproduct" data-field="product_name" data-primary-key="product_name" name="row[detail_product_name]" type="text" value="<?php echo htmlentities($row['detail_product_name']); ?>">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_product_specs'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_product_specs" data-rule="required" class="form-control" name="row[detail_product_specs]" type="text" value="<?php echo htmlentities($row['detail_product_specs']); ?>">
+            <input id="c-detail_product_specs"  data-rule="required" class="form-control selectpage" data-source="base/product/getspecs" data-field="product_specs" data-primary-key="product_specs" name="row[detail_product_specs]" type="text" value="<?php echo htmlentities($row['detail_product_specs']); ?>">
         </div>
-    
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_price'); ?>:</label>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_isedging'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="<?php echo htmlentities($row['detail_price']); ?>">
+        		<div class="radio">
+            <?php if(is_array($detailIsedgingList) || $detailIsedgingList instanceof \think\Collection || $detailIsedgingList instanceof \think\Paginator): if( count($detailIsedgingList)==0 ) : echo "" ;else: foreach($detailIsedgingList as $key=>$vo): ?>
+            <label for="row[detail_isedging]-<?php echo $key; ?>"><input id="row[detail_isedging]-<?php echo $key; ?>" name="row[detail_isedging]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['detail_isedging'])?$row['detail_isedging']:explode(',',$row['detail_isedging']))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
+            <?php endforeach; endif; else: echo "" ;endif; ?>
+            </div>     
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_useposition'); ?>:</label>
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_price'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="<?php echo htmlentities($row['detail_useposition']); ?>">
+            <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="<?php echo htmlentities($row['detail_price']); ?>">
         </div>
+        
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_discount'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="<?php echo htmlentities($row['detail_discount']); ?>">
+            <input id="c-detail_discount" data-rule="required" class="form-control" name="row[detail_discount]" type="number" value="<?php echo htmlentities($row['detail_discount']); ?>">
         </div>
-        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_hole'); ?>:</label>
+   
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_useposition'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="<?php echo htmlentities($row['detail_hole']); ?>">
+            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="<?php echo htmlentities($row['detail_useposition']); ?>">
         </div>
     </div>
     <div class="form-group">
@@ -158,10 +164,46 @@
         </div>
     </div>
     <div class="form-group">
+    	  <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_hole'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="<?php echo htmlentities($row['detail_hole']); ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_hole_price'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_hole_price" class="form-control" name="row[detail_hole_price]" type="number" value="<?php echo htmlentities($row['detail_price']); ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_hole_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2" >
+            <input id="c-detail_hole_amount" readonly="readonly" style="color: red;" class="form-control" name="row[detail_hole_amount]" type="number" value="<?php echo htmlentities($row['detail_hole_amount']); ?>">
+        </div>
+    </div>    
+    <div class="form-group">
+
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_urgent_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_urgent_amount" style="color: red;" class="form-control" name="row[detail_urgent_amount]" type="number" value="<?php echo htmlentities($row['detail_urgent_amount']); ?>">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_edging_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_edging_amount" style="color: red;" class="form-control" name="row[detail_edging_amount]" type="number" value="<?php echo htmlentities($row['detail_edging_amount']); ?>">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_other_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_other_amount" style="color: red;" class="form-control" name="row[detail_other_amount]" type="number" value="<?php echo htmlentities($row['detail_other_amount']); ?>">
+        </div> 
+    </div>
+    <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_specification'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-5">
             <input id="c-detail_specification" class="form-control selectpage" data-source="base/specification/index" data-field="specification_name" data-primary-key="specification_name" data-multiple="true"  name="row[detail_specification]" type="text" value="<?php echo htmlentities($row['detail_specification']); ?>">
         </div>
+       <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_total_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_total_amount" style="color: red;" readonly="readonly" class="form-control" name="row[detail_total_amount]" type="number" value="<?php echo htmlentities($row['detail_total_amount']); ?>">
+        </div>  
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_remark'); ?>:</label>

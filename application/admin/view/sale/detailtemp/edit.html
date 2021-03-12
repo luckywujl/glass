@@ -3,7 +3,7 @@
    
        
         <div class="col-xs-12 col-sm-2" hidden="hidden">
-            <input id="c-order_id"  data-source="order/index" class="form-control selectpage" name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
+            <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
         </div>
      <div class="form-group">
      &nbsp;
@@ -38,31 +38,37 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_product_name')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_product_name" data-rule="required" class="form-control" name="row[detail_product_name]" type="text" value="{$row.detail_product_name|htmlentities}">
+            <input id="c-detail_product_name" data-rule="required" class="form-control selectpage" data-source="base/product/getproduct" data-field="product_name" data-primary-key="product_name" name="row[detail_product_name]" type="text" value="{$row.detail_product_name|htmlentities}">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_product_specs')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_product_specs" data-rule="required" class="form-control" name="row[detail_product_specs]" type="text" value="{$row.detail_product_specs|htmlentities}">
+            <input id="c-detail_product_specs"  data-rule="required" class="form-control selectpage" data-source="base/product/getspecs" data-field="product_specs" data-primary-key="product_specs" name="row[detail_product_specs]" type="text" value="{$row.detail_product_specs|htmlentities}">
         </div>
-    
-        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_price')}:</label>
+        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_isedging')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="{$row.detail_price|htmlentities}">
+        		<div class="radio">
+            {foreach name="detailIsedgingList" item="vo"}
+            <label for="row[detail_isedging]-{$key}"><input id="row[detail_isedging]-{$key}" name="row[detail_isedging]" type="radio" value="{$key}" {in name="key" value="$row.detail_isedging"}checked{/in} /> {$vo}</label> 
+            {/foreach}
+            </div>     
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_useposition')}:</label>
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_price')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="{$row.detail_useposition|htmlentities}">
+            <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="{$row.detail_price|htmlentities}">
         </div>
+        
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_discount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="{$row.detail_discount|htmlentities}">
+            <input id="c-detail_discount" data-rule="required" class="form-control" name="row[detail_discount]" type="number" value="{$row.detail_discount|htmlentities}">
         </div>
-        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_hole')}:</label>
+   
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_useposition')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="{$row.detail_hole|htmlentities}">
+            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="{$row.detail_useposition|htmlentities}">
         </div>
     </div>
     <div class="form-group">
@@ -98,10 +104,46 @@
         </div>
     </div>
     <div class="form-group">
+    	  <label class="control-label col-xs-12 col-sm-2">{:__('Detail_hole')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="{$row.detail_hole|htmlentities}">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_hole_price')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_hole_price" class="form-control" name="row[detail_hole_price]" type="number" value="{$row.detail_price|htmlentities}">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_hole_amount')}:</label>
+        <div class="col-xs-12 col-sm-2" >
+            <input id="c-detail_hole_amount" readonly="readonly" style="color: red;" class="form-control" name="row[detail_hole_amount]" type="number" value="{$row.detail_hole_amount|htmlentities}">
+        </div>
+    </div>    
+    <div class="form-group">
+
+        <label class="control-label col-xs-12 col-sm-2">{:__('Detail_urgent_amount')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_urgent_amount" style="color: red;" class="form-control" name="row[detail_urgent_amount]" type="number" value="{$row.detail_urgent_amount|htmlentities}">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_edging_amount')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_edging_amount" style="color: red;" class="form-control" name="row[detail_edging_amount]" type="number" value="{$row.detail_edging_amount|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Detail_other_amount')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_other_amount" style="color: red;" class="form-control" name="row[detail_other_amount]" type="number" value="{$row.detail_other_amount|htmlentities}">
+        </div> 
+    </div>
+    <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_specification')}:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-5">
             <input id="c-detail_specification" class="form-control selectpage" data-source="base/specification/index" data-field="specification_name" data-primary-key="specification_name" data-multiple="true"  name="row[detail_specification]" type="text" value="{$row.detail_specification|htmlentities}">
         </div>
+       <label class="control-label col-xs-12 col-sm-1">{:__('Detail_total_amount')}:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_total_amount" style="color: red;" readonly="readonly" class="form-control" name="row[detail_total_amount]" type="number" value="{$row.detail_total_amount|htmlentities}">
+        </div>  
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_remark')}:</label>

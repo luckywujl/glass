@@ -121,18 +121,136 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 						},function (data) {
 							//失败的回调
 							return false;
-						})
-          		 
-          		 
-           	 //改变下面这个框的数据源
-           		// $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
+						}) 
         		});
-        	
+        		//在长，宽，数量,单价,折扣输入框按键计算汇总
+        		$("#c-detail_long").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_wide").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_number").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_price").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_discount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_hole").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_hole_price").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_urgent_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_edging_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_other_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
         	
         
-            Controller.api.bindevent();
+            
+            //计算金额
+				function account() {
+					//计算面积
+					$("#c-detail_area").val(($("#c-detail_long").val()*$("#c-detail_wide").val()*$("#c-detail_number").val()/1000000).toFixed(4));
+					//计算周长
+					$("#c-detail_length").val((2*$("#c-detail_long").val()+2*$("#c-detail_wide").val())*$("#c-detail_number").val());
+					//计算玻璃金额
+					$("#c-detail_amount").val(($("#c-detail_area").val()*$("#c-detail_price").val()*$("#c-detail_discount").val()/100).toFixed(2));
+					//计算打孔费
+					$("#c-detail_hole_amount").val(($("#c-detail_hole").val()*$("#c-detail_hole_price").val()).toFixed(2));
+					//计算合计金额
+					$("#c-detail_total_amount").val((1*$("#c-detail_amount").val()+1*$("#c-detail_hole_amount").val()+1*$("#c-detail_edging_amount").val()+1*$("#c-detail_urgent_amount").val()+1*$("#c-detail_other_amount").val()).toFixed(2));
+					//$("#c-detail_amount").val(($("#c-iodetail_product_price").val()*$("#c-iodetail_NW").val()*$("#c-iodetail_discount").val()/100).toFixed(2));
+				
+				}
+				Controller.api.bindevent();
         },
         edit: function () {
+        	$("#c-detail_product_name").on('change',function(){
+         		var product_name = $('#c-detail_product_name').val();
+          		 $("#c-detail_product_specs").selectPageClear();
+          	
+           	 //改变下面这个框的数据源
+           		 $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
+        		});
+        		  
+        		$("#c-detail_product_specs").on('change',function(){
+         		var product_name = $('#c-detail_product_name').val();
+         		var product_specs = $('#c-detail_product_specs').val();
+          		$("#c-detail_price").val('');
+          		Fast.api.ajax({
+							url:'base/product/getprice',
+							data:{product_name:product_name,product_specs:product_specs}
+						},
+						function (data,ret) {
+							//填写价格信息
+							console.info(data);
+							//return false;
+							$("#c-detail_price").val(data.product_price);
+							account();
+						},function (data) {
+							//失败的回调
+							return false;
+						}) 
+        		});
+          	//在长，宽，数量,单价,折扣输入框按键计算汇总
+        		$("#c-detail_long").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_wide").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_number").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_price").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_discount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_hole").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_hole_price").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_urgent_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_edging_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+				$("#c-detail_other_amount").bind("keyup",function (event) {
+					account(); 	
+				}); 
+        	
+        
+            
+            //计算金额
+				function account() {
+					//计算面积
+					$("#c-detail_area").val(($("#c-detail_long").val()*$("#c-detail_wide").val()*$("#c-detail_number").val()/1000000).toFixed(4));
+					//计算周长
+					$("#c-detail_length").val((2*$("#c-detail_long").val()+2*$("#c-detail_wide").val())*$("#c-detail_number").val());
+					//计算玻璃金额
+					$("#c-detail_amount").val(($("#c-detail_area").val()*$("#c-detail_price").val()*$("#c-detail_discount").val()/100).toFixed(2));
+					//计算打孔费
+					$("#c-detail_hole_amount").val(($("#c-detail_hole").val()*$("#c-detail_hole_price").val()).toFixed(2));
+					//计算合计金额
+					$("#c-detail_total_amount").val((1*$("#c-detail_amount").val()+1*$("#c-detail_hole_amount").val()+1*$("#c-detail_edging_amount").val()+1*$("#c-detail_urgent_amount").val()+1*$("#c-detail_other_amount").val()).toFixed(2));
+					//$("#c-detail_amount").val(($("#c-iodetail_product_price").val()*$("#c-iodetail_NW").val()*$("#c-iodetail_discount").val()/100).toFixed(2));
+				
+				}
             Controller.api.bindevent();
         },
         api: {

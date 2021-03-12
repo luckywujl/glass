@@ -1,0 +1,122 @@
+---------------------------------------------------------------
+[ 2021-03-12T23:59:52+08:00 ] 127.0.0.1 POST 127.0.0.1:9004/ieDQIAXwJU.php/base/product/getspecs?product_name=%E9%92%A2%E5%8C%96%E7%8E%BB%E7%92%83
+[运行时间：0.101397s] [吞吐率：9.86req/s] [内存消耗：780.59kb] [文件加载：143]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000019s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000385s ]
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/thinkphp/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_dispatch [ RunTime:0.000051s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'base.product',
+    2 => 'getspecs',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=g7n444qv5r49k1sscn80p080at; think_var=zh-cn',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Safari/537.36 Qaxbrowser',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://127.0.0.1:9004',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '217',
+  'connection' => 'keep-alive',
+  'host' => '127.0.0.1:9004',
+)
+[ info ] [ PARAM ] array (
+  'product_name' => '钢化玻璃',
+  'q_word' => 
+  array (
+    0 => '',
+  ),
+  'pageNumber' => '1',
+  'pageSize' => '10',
+  'andOr' => 'OR ',
+  'orderBy' => 
+  array (
+    0 => 
+    array (
+      0 => 'product_specs',
+      1 => 'ASC',
+    ),
+  ),
+  'searchTable' => 'tbl',
+  'showField' => 'product_specs',
+  'keyField' => 'product_specs',
+  'searchField' => 
+  array (
+    0 => 'product_specs',
+  ),
+  'product_specs' => '',
+)
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.000106s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ BEHAVIOR ] Run \addons\geetest\Geetest @config_init [ RunTime:0.000090s ]
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/public/../application/admin/lang/zh-cn/base/product.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run \addons\geetest\Geetest @action_begin [ RunTime:0.000030s ]
+[ info ] [ RUN ] app\admin\controller\base\Product->getspecs[ /home/www/admin/localhost_9004/wwwroot/application/admin/controller/base/Product.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.088576s ]
+[ info ] [ LOG ] INIT File
+---------------------------------------------------------------
+[ 2021-03-12T23:59:52+08:00 ] 127.0.0.1 POST 127.0.0.1:9004/ieDQIAXwJU.php/base/product/getprice
+[运行时间：0.095826s] [吞吐率：10.44req/s] [内存消耗：703.72kb] [文件加载：141]
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000017s ]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run Closure @app_init [ RunTime:0.000334s ]
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/thinkphp/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @app_dispatch [ RunTime:0.000036s ]
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'base.product',
+    2 => 'getprice',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'cookie' => 'PHPSESSID=g7n444qv5r49k1sscn80p080at; think_var=zh-cn',
+  'accept-language' => 'zh-CN,zh;q=0.9',
+  'accept-encoding' => 'gzip, deflate, br',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'user-agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.128 Safari/537.36 Qaxbrowser',
+  'x-requested-with' => 'XMLHttpRequest',
+  'origin' => 'http://127.0.0.1:9004',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'content-length' => '68',
+  'connection' => 'keep-alive',
+  'host' => '127.0.0.1:9004',
+)
+[ info ] [ PARAM ] array (
+  'product_name' => '钢化玻璃',
+  'product_specs' => '8 mm',
+)
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/public/../application/admin/lang/zh-cn.php
+[ info ] [ BEHAVIOR ] Run app\common\behavior\Common @module_init [ RunTime:0.000096s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ BEHAVIOR ] Run \addons\geetest\Geetest @config_init [ RunTime:0.000076s ]
+[ info ] [ LANG ] /home/www/admin/localhost_9004/wwwroot/public/../application/admin/lang/zh-cn/base/product.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ BEHAVIOR ] Run \addons\geetest\Geetest @action_begin [ RunTime:0.000035s ]
+[ info ] [ RUN ] app\admin\controller\base\Product->getprice[ /home/www/admin/localhost_9004/wwwroot/application/admin/controller/base/Product.php ]
+[ info ] [ BEHAVIOR ] Run app\admin\behavior\AdminLog @app_end [ RunTime:0.086398s ]
+[ info ] [ LOG ] INIT File
