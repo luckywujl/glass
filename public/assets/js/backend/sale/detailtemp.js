@@ -3,7 +3,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
     var Controller = {
     	
         index: function () {
-        	$(".btn-add").data("area",["90%","90%"]);
+        	$(".btn-add").data("area",["75%","70%"]);
+        	$(".btn-edit").data("area",["75%","70%"]);
+        	$(".btn-edit").data("title",'修改');
         	//$(".btn-add").data("title",'添加');
         
         	Controller.api.bindevent();
@@ -90,14 +92,44 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 
             // 为表格绑定事件
             Table.api.bindevent(table);
+            table.on('post-body.bs.table',function () {
+            	$(".btn-editone").data("area",["75%","70%"]);
+            	$(".btn-editone").data("title",'修改');
+            })
         },
         add: function () {
-        	 Form.api.bindevent($("form[role=form]"), function(data, ret) {
-       // Fast.api.close();
-       return false;
-    }, function(data, ret) {
-        Toastr.success("失败");
-    });
+        		$("#c-detail_product_name").on('change',function(){
+         		var product_name = $('#c-detail_product_name').val();
+          		 $("#c-detail_product_specs").selectPageClear();
+           	 //改变下面这个框的数据源
+           		 $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
+        		});
+        		
+        		$("#c-detail_product_specs").on('change',function(){
+         		var product_name = $('#c-detail_product_name').val();
+         		var product_specs = $('#c-detail_product_specs').val();
+          		$("#c-detail_price").val('');
+          		Fast.api.ajax({
+							url:'base/product/getprice',
+							data:{product_name:product_name,product_specs:product_specs}
+						},
+						function (data,ret) {
+							//填写价格信息
+							console.info(data);
+							//return false;
+							$("#c-detail_price").val(data.product_price);
+						},function (data) {
+							//失败的回调
+							return false;
+						})
+          		 
+          		 
+           	 //改变下面这个框的数据源
+           		// $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
+        		});
+        	
+        	
+        
             Controller.api.bindevent();
         },
         edit: function () {

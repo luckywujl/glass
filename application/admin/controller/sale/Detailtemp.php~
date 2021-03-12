@@ -5,6 +5,7 @@ namespace app\admin\controller\sale;
 use app\common\controller\Backend;
 use think\Db;
 use app\admin\model\base as base;
+use app\admin\model\sale as sale;
 
 /**
  * 订单明细表临时管理
@@ -48,6 +49,38 @@ class Detailtemp extends Backend
      * 因此在当前控制器中可不用编写增删改查的代码,除非需要自己控制这部分逻辑
      * 需要将application/admin/library/traits/Backend.php中对应的方法复制到当前控制器,然后进行修改
      */
+     /**
+     * 查看
+     */
+    public function index()
+    {
+        //设置过滤方法
+        $this->request->filter(['strip_tags', 'trim']);
+        list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+            $order_main_temp = new sale\Maintemp();
+            $main_temp = $order_main_temp
+            	->where($where)
+            	->where(['order_operator'=>$this->auth->nickname])
+            	->find();
+        if ($this->request->isAjax()) {
+            //如果发送的来源是Selectpage，则转发到Selectpage
+            if ($this->request->request('keyField')) {
+                return $this->selectpage();
+            }
+            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+
+            $list = $this->model
+                ->where($where)
+                ->order($sort, $order)
+                ->paginate($limit);
+
+            $result = array("total" => $list->total(), "rows" => $list->items());
+
+            return json($result);
+        }
+        $this->view->assign("row", $main_temp);
+        return $this->view->fetch();
+    }
     /**
      * 添加
      */
@@ -91,9 +124,12 @@ class Detailtemp extends Backend
             $this->error(__('Parameter %s can not be empty', ''));
         }
         $specification = new base\Specification();
+        $remark = new base\Remark();
         list($where, $sort, $order, $offset, $limit) = $this->buildparams();
         $specification_list = $specification->where($where)->select();
-        $this->view->assign("detailSpecificationList", $specification_list);       
+        $remark_list = $remark->where($where)->select();
+        $this->view->assign("detailSpecificationList", $specification_list);   
+        $this->view->assign("detailRemarkList", $remark_list);     
         return $this->view->fetch();
     }
 
@@ -145,6 +181,13 @@ class Detailtemp extends Backend
             }
             $this->error(__('Parameter %s can not be empty', ''));
         }
+        $specification = new base\Specification();
+        $remark = new base\Remark();
+        list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+        $specification_list = $specification->where($where)->select();
+        $remark_list = $remark->where($where)->select();
+        $this->view->assign("detailSpecificationList", $specification_list);   
+        $this->view->assign("detailRemarkList", $remark_list);
         $this->view->assign("row", $row);
         return $this->view->fetch();
     }

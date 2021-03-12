@@ -7,7 +7,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_code')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_code"  class="form-control" name="row[order_code]" type="text">
+            <input id="c-order_code"  class="form-control" name="row[order_code]" type="text" value="{$row.order_code|htmlentities}">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_datetime')}:</label>
@@ -22,70 +22,70 @@
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_saleman')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_saleman" class="form-control selectpage" data-source="base/personnel/index" data-field="personnel_name" data-primary-key="personnel_name"  name="row[order_saleman]" type="text">
+            <input id="c-order_saleman" class="form-control selectpage" data-source="base/personnel/index" data-field="personnel_name" data-primary-key="personnel_name"  name="row[order_saleman]" type="text" value="{$row.order_saleman|htmlentities}">
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-2" hidden="hidden">
-           <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text"> 
+           <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text" value="{$row.order_custom_name|htmlentities}"> 
         </div>
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_name')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_id" data-rule="required"  class="form-control" name="row[order_custom_id]" type="text" value="">
+            <input id="c-order_custom_id" data-rule="required"  class="form-control" name="row[order_custom_id]" type="text" value="{$row.order_custom_id|htmlentities}">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_contact')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_contact" class="form-control" name="row[order_custom_contact]" type="text">
+            <input id="c-order_custom_contact" class="form-control" name="row[order_custom_contact]" type="text" value="{$row.order_custom_contact|htmlentities}">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_tel')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_tel" class="form-control" name="row[order_custom_tel]" type="text">
+            <input id="c-order_custom_tel" class="form-control" name="row[order_custom_tel]" type="text" value="{$row.order_custom_tel|htmlentities}">
         </div>
   
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_address')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_address" class="form-control" name="row[order_custom_address]" type="text">
+            <input id="c-order_custom_address" class="form-control" name="row[order_custom_address]" type="text" value="{$row.order_custom_address|htmlentities}">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_discount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number">
+            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="{$row.order_custom_discount|htmlentities}">
         </div>
  
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_number_total')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number">
+            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number" value="{$row.order_number_total|htmlentities}">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_area_total')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number">
+            <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number" value="{$row.order_area_total|htmlentities}">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_length_total')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number">
+            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number" value="{$row.order_length_total|htmlentities}">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_hole_total')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number">
+            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number" value="{$row.order_hole_total|htmlentities}">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_amount_total')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number">
+            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number" value="{$row.order_amount_total|htmlentities}">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_freight_type')}:</label>
         <div class="col-xs-12 col-sm-2">
             <div class="radio">
             {foreach name="orderFreightTypeList" item="vo"}
-            <label for="row[order_freight_type]-{$key}"><input id="row[order_freight_type]-{$key}" name="row[order_freight_type]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
+            <label for="row[order_freight_type]-{$key}"><input id="row[order_freight_type]-{$key}" name="row[order_freight_type]" type="radio" value="{$key}" {in name="key" value="$row.order_freight_type"}checked{/in} /> {$vo}</label> 
             {/foreach}
             </div>            
         </div>
@@ -94,7 +94,7 @@
         <div class="col-xs-12 col-sm-2">
             <div class="radio">
             {foreach name="orderIsdeliveryList" item="vo"}
-            <label for="row[order_isdelivery]-{$key}"><input id="row[order_isdelivery]-{$key}" name="row[order_isdelivery]" type="radio" value="{$key}" {in name="key" value="0"}checked{/in} /> {$vo}</label> 
+            <label for="row[order_isdelivery]-{$key}"><input id="row[order_isdelivery]-{$key}" name="row[order_isdelivery]" type="radio" value="{$key}" {in name="key" value="$row.order_isdelivery"}checked{/in} /> {$vo}</label> 
             {/foreach}
             </div>              
         </div> 

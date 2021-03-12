@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:98:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/index.html";i:1615301464;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:98:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/index.html";i:1615463982;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -67,7 +67,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_code'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_code"  class="form-control" name="row[order_code]" type="text">
+            <input id="c-order_code"  class="form-control" name="row[order_code]" type="text" value="<?php echo htmlentities($row['order_code']); ?>">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_datetime'); ?>:</label>
@@ -82,70 +82,70 @@
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_saleman'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_saleman" class="form-control selectpage" data-source="base/personnel/index" data-field="personnel_name" data-primary-key="personnel_name"  name="row[order_saleman]" type="text">
+            <input id="c-order_saleman" class="form-control selectpage" data-source="base/personnel/index" data-field="personnel_name" data-primary-key="personnel_name"  name="row[order_saleman]" type="text" value="<?php echo htmlentities($row['order_saleman']); ?>">
         </div>
     </div>
     <div class="form-group">
         <div class="col-xs-12 col-sm-2" hidden="hidden">
-           <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text"> 
+           <input id="c-order_custom_name" data-rule="required" class="form-control" name="row[order_custom_name]" type="text" value="<?php echo htmlentities($row['order_custom_name']); ?>"> 
         </div>
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_name'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_id" data-rule="required"  class="form-control" name="row[order_custom_id]" type="text" value="">
+            <input id="c-order_custom_id" data-rule="required"  class="form-control" name="row[order_custom_id]" type="text" value="<?php echo htmlentities($row['order_custom_id']); ?>">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_contact'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_contact" class="form-control" name="row[order_custom_contact]" type="text">
+            <input id="c-order_custom_contact" class="form-control" name="row[order_custom_contact]" type="text" value="<?php echo htmlentities($row['order_custom_contact']); ?>">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_tel'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_tel" class="form-control" name="row[order_custom_tel]" type="text">
+            <input id="c-order_custom_tel" class="form-control" name="row[order_custom_tel]" type="text" value="<?php echo htmlentities($row['order_custom_tel']); ?>">
         </div>
   
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_address'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_address" class="form-control" name="row[order_custom_address]" type="text">
+            <input id="c-order_custom_address" class="form-control" name="row[order_custom_address]" type="text" value="<?php echo htmlentities($row['order_custom_address']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_custom_discount'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number">
+            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="<?php echo htmlentities($row['order_custom_discount']); ?>">
         </div>
  
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_number_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number">
+            <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number" value="<?php echo htmlentities($row['order_number_total']); ?>">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_area_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number">
+            <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number" value="<?php echo htmlentities($row['order_area_total']); ?>">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_length_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number">
+            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number" value="<?php echo htmlentities($row['order_length_total']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_hole_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number">
+            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number" value="<?php echo htmlentities($row['order_hole_total']); ?>">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_amount_total'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number">
+            <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number" value="<?php echo htmlentities($row['order_amount_total']); ?>">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Order_freight_type'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
             <div class="radio">
             <?php if(is_array($orderFreightTypeList) || $orderFreightTypeList instanceof \think\Collection || $orderFreightTypeList instanceof \think\Paginator): if( count($orderFreightTypeList)==0 ) : echo "" ;else: foreach($orderFreightTypeList as $key=>$vo): ?>
-            <label for="row[order_freight_type]-<?php echo $key; ?>"><input id="row[order_freight_type]-<?php echo $key; ?>" name="row[order_freight_type]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), explode(',',"0"))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
+            <label for="row[order_freight_type]-<?php echo $key; ?>"><input id="row[order_freight_type]-<?php echo $key; ?>" name="row[order_freight_type]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['order_freight_type'])?$row['order_freight_type']:explode(',',$row['order_freight_type']))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
             <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>            
         </div>
@@ -154,7 +154,7 @@
         <div class="col-xs-12 col-sm-2">
             <div class="radio">
             <?php if(is_array($orderIsdeliveryList) || $orderIsdeliveryList instanceof \think\Collection || $orderIsdeliveryList instanceof \think\Paginator): if( count($orderIsdeliveryList)==0 ) : echo "" ;else: foreach($orderIsdeliveryList as $key=>$vo): ?>
-            <label for="row[order_isdelivery]-<?php echo $key; ?>"><input id="row[order_isdelivery]-<?php echo $key; ?>" name="row[order_isdelivery]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), explode(',',"0"))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
+            <label for="row[order_isdelivery]-<?php echo $key; ?>"><input id="row[order_isdelivery]-<?php echo $key; ?>" name="row[order_isdelivery]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['order_isdelivery'])?$row['order_isdelivery']:explode(',',$row['order_isdelivery']))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
             <?php endforeach; endif; else: echo "" ;endif; ?>
             </div>              
         </div> 

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:97:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/edit.html";i:1615391863;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:97:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/edit.html";i:1615471648;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1611580234;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1611580234;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1611580234;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -60,139 +60,122 @@
                             <div class="content">
                                 <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Order_id'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-order_id" data-rule="required" data-source="order/index" class="form-control selectpage" name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
+   
+       
+        <div class="col-xs-12 col-sm-2" hidden="hidden">
+            <input id="c-order_id"  data-source="order/index" class="form-control selectpage" name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_order_code'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_order_code" data-rule="required" class="form-control" name="row[detail_order_code]" type="text" value="<?php echo htmlentities($row['detail_order_code']); ?>">
+     <div class="form-group">
+     &nbsp;
+     </div>
+    
+        <div class="col-xs-12 col-sm-2" hidden="hidden">
+            <input id="c-detail_order_code"  class="form-control" name="row[detail_order_code]" type="text" value="<?php echo htmlentities($row['detail_order_code']); ?>">
         </div>
-    </div>
+
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_datetime'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_datetime" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[detail_datetime]" type="text" value="<?php echo $row['detail_datetime']; ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_delivery_date'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_delivery_date'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_delivery_date" data-rule="required" class="form-control datetimepicker" data-date-format="YYYY-MM-DD" data-use-current="true" name="row[detail_delivery_date]" type="text" value="<?php echo $row['detail_delivery_date']; ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_isurgent'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-                        
-            <select  id="c-detail_isurgent" data-rule="required" class="form-control selectpicker" name="row[detail_isurgent]">
-                <?php if(is_array($detailIsurgentList) || $detailIsurgentList instanceof \think\Collection || $detailIsurgentList instanceof \think\Paginator): if( count($detailIsurgentList)==0 ) : echo "" ;else: foreach($detailIsurgentList as $key=>$vo): ?>
-                    <option value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['detail_isurgent'])?$row['detail_isurgent']:explode(',',$row['detail_isurgent']))): ?>selected<?php endif; ?>><?php echo $vo; ?></option>
-                <?php endforeach; endif; else: echo "" ;endif; ?>
-            </select>
-
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_isurgent'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <div class="radio">
+            <?php if(is_array($detailIsurgentList) || $detailIsurgentList instanceof \think\Collection || $detailIsurgentList instanceof \think\Paginator): if( count($detailIsurgentList)==0 ) : echo "" ;else: foreach($detailIsurgentList as $key=>$vo): ?>
+            <label for="row[detail_isurgent]-<?php echo $key; ?>"><input id="row[detail_isurgent]-<?php echo $key; ?>" name="row[detail_isurgent]" type="radio" value="<?php echo $key; ?>" <?php if(in_array(($key), is_array($row['detail_isurgent'])?$row['detail_isurgent']:explode(',',$row['detail_isurgent']))): ?>checked<?php endif; ?> /> <?php echo $vo; ?></label> 
+            <?php endforeach; endif; else: echo "" ;endif; ?>
+            </div>             
         </div>
     </div>
     
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_no'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_no" class="form-control" name="row[detail_no]" type="number" value="<?php echo htmlentities($row['detail_no']); ?>">
-        </div>
-    </div>
+   
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_product_name'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_product_name" data-rule="required" class="form-control" name="row[detail_product_name]" type="text" value="<?php echo htmlentities($row['detail_product_name']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_product_specs'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_product_specs'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_product_specs" data-rule="required" class="form-control" name="row[detail_product_specs]" type="text" value="<?php echo htmlentities($row['detail_product_specs']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_price'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_price'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_price" data-rule="required" class="form-control" name="row[detail_price]" type="number" value="<?php echo htmlentities($row['detail_price']); ?>">
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_discount'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_useposition'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="<?php echo htmlentities($row['detail_useposition']); ?>">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_discount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="<?php echo htmlentities($row['detail_discount']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_useposition'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_useposition" class="form-control" name="row[detail_useposition]" type="text" value="<?php echo htmlentities($row['detail_useposition']); ?>">
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_hole'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
+            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="<?php echo htmlentities($row['detail_hole']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_long'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_long" data-rule="required" class="form-control" name="row[detail_long]" type="number" value="<?php echo htmlentities($row['detail_long']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_wide'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_wide'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_wide" data-rule="required" class="form-control" name="row[detail_wide]" type="number" value="<?php echo htmlentities($row['detail_wide']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_number'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+    
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_number'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_number" data-rule="required" class="form-control" name="row[detail_number]" type="number" value="<?php echo htmlentities($row['detail_number']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_area'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_area" data-rule="required" class="form-control" name="row[detail_area]" type="number" value="<?php echo htmlentities($row['detail_area']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_length'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_length'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_length" class="form-control" name="row[detail_length]" type="number" value="<?php echo htmlentities($row['detail_length']); ?>">
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_hole'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_hole" class="form-control" name="row[detail_hole]" type="number" value="<?php echo htmlentities($row['detail_hole']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_amount'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
+   
+        <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_amount'); ?>:</label>
+        <div class="col-xs-12 col-sm-2">
             <input id="c-detail_amount" class="form-control" name="row[detail_amount]" type="number" value="<?php echo htmlentities($row['detail_amount']); ?>">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_remark'); ?>:</label>
-        <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_remark" class="form-control" name="row[detail_remark]" type="text" value="<?php echo htmlentities($row['detail_remark']); ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_specification'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-detail_specification" class="form-control" name="row[detail_specification]" type="text" value="<?php echo htmlentities($row['detail_specification']); ?>">
+            <input id="c-detail_specification" class="form-control selectpage" data-source="base/specification/index" data-field="specification_name" data-primary-key="specification_name" data-multiple="true"  name="row[detail_specification]" type="text" value="<?php echo htmlentities($row['detail_specification']); ?>">
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Company_id'); ?>:</label>
+        <label class="control-label col-xs-12 col-sm-2"><?php echo __('Detail_remark'); ?>:</label>
         <div class="col-xs-12 col-sm-8">
-            <input id="c-company_id" data-rule="required" data-source="company/index" class="form-control selectpage" name="row[company_id]" type="text" value="<?php echo htmlentities($row['company_id']); ?>">
+            <input id="c-detail_remark" class="form-control"  name="row[detail_remark]" type="text" list="remark_list" value="<?php echo htmlentities($row['detail_remark']); ?>">
+            <datalist id="remark_list" style="display:none;">
+   				 <?php if(is_array($detailRemarkList) || $detailRemarkList instanceof \think\Collection || $detailRemarkList instanceof \think\Paginator): if( count($detailRemarkList)==0 ) : echo "" ;else: foreach($detailRemarkList as $key=>$vo): ?>
+                    <option value="<?php echo $vo['remark_name']; ?>" {/in}><?php echo $vo['remark_name']; ?></option>
+                <?php endforeach; endif; else: echo "" ;endif; ?>
+				</datalist>  
         </div>
     </div>
+    
+    
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-2"></label>
         <div class="col-xs-12 col-sm-8">
