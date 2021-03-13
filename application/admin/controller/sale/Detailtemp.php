@@ -134,35 +134,22 @@ class Detailtemp extends Backend
         return $this->view->fetch();
     }
 
+    
     /**
      * 编辑
      */
-    public function edit($ids = null)
+    public function edit($ids =null)
     {
-        $row = $this->model->get($ids);
-        if (!$row) {
-            $this->error(__('No Results were found'));
-        }
-        $adminIds = $this->getDataLimitAdminIds();
-        if (is_array($adminIds)) {
-            if (!in_array($row[$this->dataLimitField], $adminIds)) {
-                $this->error(__('You have no permission'));
-            }
-        }
         if ($this->request->isPost()) {
             $params = $this->request->post("row/a");
             if ($params) {
                 $params = $this->preExcludeFields($params);
                 $result = false;
                 Db::startTrans();
-                try {
-                    //是否采用模型验证
-                    if ($this->modelValidate) {
-                        $name = str_replace("\\model\\", "\\validate\\", get_class($this->model));
-                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.edit' : $name) : $this->modelValidate;
-                        $row->validateFailException(true)->validate($validate);
-                    }
-                    $result = $row->allowField(true)->save($params);
+                try {              
+				        $result = $this->model
+                    		->where('detail_id',$params['detail_id'])
+                    		->update($params);                    
                     Db::commit();
                 } catch (ValidateException $e) {
                     Db::rollback();
@@ -181,6 +168,17 @@ class Detailtemp extends Backend
                 }
             }
             $this->error(__('Parameter %s can not be empty', ''));
+        }
+        //进入编辑页面
+        $row = $this->model->get($ids);
+        if (!$row) {
+            $this->error(__('No Results were found'));
+        }
+        $adminIds = $this->getDataLimitAdminIds();
+        if (is_array($adminIds)) {
+            if (!in_array($row[$this->dataLimitField], $adminIds)) {
+                $this->error(__('You have no permission'));
+            }
         }
         //为备注和工艺要求准备下拉数据
         $specification = new base\Specification();

@@ -179,9 +179,17 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 				Controller.api.bindevent();
         },
         edit: function () {
-        	$("#c-detail_product_specs").data("params",function (obj) {
-        	   return {custom:{product_name:$("#c-detail_product_name").val()}};
-        	});
+        	Controller.api.bindevent();
+        	//设置产品规格的过滤条件
+        		$("#c-detail_product_specs").data("params",function (obj) {
+        	  		 return {custom:{product_name:$("#c-detail_product_name").val()}};
+        		});
+        		//当产品名称发生变化时，清空产品规格 
+        		$("#c-detail_product_name").on('change',function(){
+          		 $("#c-detail_product_specs").selectPageClear();  
+          		 $("#c-detail_price").val('');	   
+          		 account();
+        		});
         		  
         		$("#c-detail_product_specs").on('change',function(){
          		var product_name = $('#c-detail_product_name').val();
@@ -199,6 +207,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 							account();
 						},function (data) {
 							//失败的回调
+							account();
 							return false;
 						}) 
         		});
@@ -233,7 +242,14 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 				$("#c-detail_other_amount").bind("keyup",function (event) {
 					account(); 	
 				}); 
-        	
+        		//提交按钮
+        	  	$(document).on("click",".btn-accept",function () {
+        	  		//var newamount = $("#c-detail_amount").val();
+        	  		//var amounttotal = parent.$("#c-sale_amount").val();
+        	  		//parent.$("#c-sale_amount").val(amounttotal-oldamount+newamount);
+        	  		$("#edit-form").attr("action","sale/detailtemp/edit").submit();
+        	  		//  Fast.api.close('123456');//保存后返回数据给调用者
+        	  	})
         
             
             //计算金额
@@ -249,13 +265,31 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					//计算合计金额
 					$("#c-detail_total_amount").val((1*$("#c-detail_amount").val()+1*$("#c-detail_hole_amount").val()+1*$("#c-detail_edging_amount").val()+1*$("#c-detail_urgent_amount").val()+1*$("#c-detail_other_amount").val()).toFixed(2));
 					//$("#c-detail_amount").val(($("#c-iodetail_product_price").val()*$("#c-iodetail_NW").val()*$("#c-iodetail_discount").val()/100).toFixed(2));
-				
 				}
-            Controller.api.bindevent();
+            
         },
         api: {
             bindevent: function () {
-                Form.api.bindevent($("form[role=form]"));
+                Form.api.bindevent($("form[role=form]"),function (data,ret) {
+                  //数据保存成功后执行，清除产品重量接头数，再打印
+                  $("#c-order_code").val('123456');
+                
+                  //打印单据
+                  //Fast.api.open('product/product/printingone?product_id='+data.product_id,'打印标签',{}); 	
+                 
+                  //刷新表格
+   				  // $("#table").bootstrapTable('refresh');
+   				   }, function(data, ret){
+  						Toastr.success("失败");
+				   	}, function(success, error){
+
+					//bindevent的第三个参数为提交前的回调
+					//如果我们需要在表单提交前做一些数据处理，则可以在此方法处理
+					//注意如果我们需要阻止表单，可以在此使用return false;即可
+					//如果我们处理完成需要再次提交表单则可以使用submit提交,如下
+					//Form.api.submit(this, success, error);
+					//return false;
+                });
                 return false;
             }
         }
