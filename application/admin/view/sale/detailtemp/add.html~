@@ -93,7 +93,7 @@
    
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_amount" readonly="readonly" class="form-control" name="row[detail_amount]" type="number">
+            <input id="c-detail_amount" readonly="readonly" style="color: red;" class="form-control" name="row[detail_amount]" type="number">
         </div>
     </div>
     <div class="form-group">
@@ -110,7 +110,7 @@
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_hole_amount')}:</label>
         <div class="col-xs-12 col-sm-2" >
-            <input id="c-detail_hole_amount" readonly="readonly" class="form-control" name="row[detail_hole_amount]" type="number">
+            <input id="c-detail_hole_amount" readonly="readonly" style="color: red;" class="form-control" name="row[detail_hole_amount]" type="number">
         </div>
 
        
@@ -119,12 +119,12 @@
 
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_urgent_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_urgent_amount" class="form-control" name="row[detail_urgent_amount]" type="number">
+            <input id="c-detail_urgent_amount" style="color: red;" class="form-control" name="row[detail_urgent_amount]" type="number">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_edging_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_edging_amount" class="form-control" name="row[detail_edging_amount]" type="number">
+            <input id="c-detail_edging_amount" style="color: red;" class="form-control" name="row[detail_edging_amount]" type="number">
         </div>
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_other_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
@@ -141,7 +141,7 @@
         </div>
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_total_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_total_amount" readonly="readonly" class="form-control" name="row[detail_total_amount]" type="number">
+            <input id="c-detail_total_amount" style="color: red;" readonly="readonly" class="form-control" name="row[detail_total_amount]" type="number">
         </div> 
     </div>
     <div class="form-group">

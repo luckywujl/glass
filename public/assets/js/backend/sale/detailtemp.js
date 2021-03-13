@@ -3,8 +3,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
     var Controller = {
     	
         index: function () {
-        	$(".btn-add").data("area",["75%","70%"]);
-        	$(".btn-edit").data("area",["75%","70%"]);
+        	$(".btn-add").data("area",["90%","90%"]);
+        	$(".btn-edit").data("area",["90%","90%"]);
         	$(".btn-edit").data("title",'修改');
         	//$(".btn-add").data("title",'添加');
         
@@ -93,17 +93,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             // 为表格绑定事件
             Table.api.bindevent(table);
             table.on('post-body.bs.table',function () {
-            	$(".btn-editone").data("area",["75%","70%"]);
+            	$(".btn-editone").data("area",["90%","90%"]);
             	$(".btn-editone").data("title",'修改');
             })
         },
         add: function () {
-        		$("#c-detail_product_name").on('change',function(){
-         		var product_name = $('#c-detail_product_name').val();
-          		 $("#c-detail_product_specs").selectPageClear();
+        	$("#c-detail_product_specs").data("params",function (obj) {
+        	   return {custom:{product_name:$("#c-detail_product_name").val()}};
+        	});
+        		
+        		//$("#c-detail_product_name").on('change',function(){
+         	//	var product_name = $('#c-detail_product_name').val();
+          	//	 $("#c-detail_product_specs").selectPageClear();
            	 //改变下面这个框的数据源
-           		 $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
-        		});
+           	//	 $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
+        		//});
         		
         		$("#c-detail_product_specs").on('change',function(){
          		var product_name = $('#c-detail_product_name').val();
@@ -175,13 +179,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 				Controller.api.bindevent();
         },
         edit: function () {
-        	$("#c-detail_product_name").on('change',function(){
-         		var product_name = $('#c-detail_product_name').val();
-          		 $("#c-detail_product_specs").selectPageClear();
-          	
-           	 //改变下面这个框的数据源
-           		 $("#c-detail_product_specs_text").data("selectPageObject").option.data = 'base/product/getspecs?product_name='+product_name;   
-        		});
+        	$("#c-detail_product_specs").data("params",function (obj) {
+        	   return {custom:{product_name:$("#c-detail_product_name").val()}};
+        	});
         		  
         		$("#c-detail_product_specs").on('change',function(){
          		var product_name = $('#c-detail_product_name').val();

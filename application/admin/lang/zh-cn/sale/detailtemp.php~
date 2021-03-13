@@ -30,6 +30,7 @@ return [
     'Detail_hole_amount'   => '打孔费',
     'Detail_edging_amount' => '磨边费',
     'Detail_urgent_amount' => '加急费',
+    'Detail_other_amount'  => '其它费用',
     'Detail_total_amount'  => '合计金额',
     'Detail_amount'        => '金额',
     'Detail_specification' => '工艺要求',

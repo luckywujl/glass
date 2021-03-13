@@ -51,13 +51,18 @@
     </div>
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_discount')}:</label>
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-12 col-sm-1">
             <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="{$row.order_custom_discount|htmlentities}">
         </div>
  
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_number_total')}:</label>
-        <div class="col-xs-12 col-sm-2">
+        <div class="col-xs-12 col-sm-1">
             <input id="c-order_number_total" class="form-control" name="row[order_number_total]" type="number" value="{$row.order_number_total|htmlentities}">
+        </div>
+        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_length_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number" value="{$row.order_length_total|htmlentities}">
         </div>
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_area_total')}:</label>
@@ -65,21 +70,40 @@
             <input id="c-order_area_total" class="form-control" name="row[order_area_total]" type="number" value="{$row.order_area_total|htmlentities}">
         </div>
 
-        <label class="control-label col-xs-12 col-sm-1">{:__('Order_length_total')}:</label>
-        <div class="col-xs-12 col-sm-2">
-            <input id="c-order_length_total" class="form-control" name="row[order_length_total]" type="number" value="{$row.order_length_total|htmlentities}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-xs-12 col-sm-1">{:__('Order_hole_total')}:</label>
-        <div class="col-xs-12 col-sm-2">
-            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number" value="{$row.order_hole_total|htmlentities}">
-        </div>
-
+        
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_amount_total')}:</label>
         <div class="col-xs-12 col-sm-2">
             <input id="c-order_amount_total" class="form-control" name="row[order_amount_total]" type="number" value="{$row.order_amount_total|htmlentities}">
         </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_hole_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_hole_total" class="form-control" name="row[order_hole_total]" type="number" value="{$row.order_hole_total|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_hole_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_hole_amount_total" class="form-control" name="row[order_hole_amount_total]" type="number" value="{$row.order_hole_amount_total|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_edging_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_edging_amount_total" class="form-control" name="row[order_edging_amount_total]" type="number" value="{$row.order_edging_amount_total|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_urgent_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_urgent_amount_total" class="form-control" name="row[order_rugent_amount_total]" type="number" value="{$row.order_urgent_amount_total|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_other_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_other_amount_total" class="form-control" name="row[order_other_amount_total]" type="number" value="{$row.order_other_amount_total|htmlentities}">
+        </div>
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_total_amount_total')}:</label>
+        <div class="col-xs-12 col-sm-1">
+            <input id="c-order_total_amount_total" class="form-control" name="row[order_total_amount_total]" type="number" value="{$row.order_total_amount_total|htmlentities}">
+        </div>
+	 </div>
+    <div class="form-group">
+        
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_freight_type')}:</label>
         <div class="col-xs-12 col-sm-2">
@@ -98,11 +122,8 @@
             {/foreach}
             </div>              
         </div> 
-    </div>
-   
-    <div class="form-group layer-footer">
-        <label class="control-label col-xs-12 col-sm-2"></label>
-        <div class="col-xs-12 col-sm-8">
+       <label class="control-label col-xs-12 col-sm-1"></label>
+        <div class="col-xs-12 col-sm-4">
             <button type="button" id="new"  class="btn btn-info btn-embossed btn-new">{:__('新建')}</button>
             <button type="button" class="btn btn-success btn-embossed btn-save">{:__('暂存')}</button>  
             <button type="button" id="save"  class="btn btn-success btn-embossed btn-savedraft">{:__('保存草稿')}</button>
@@ -110,6 +131,10 @@
             <button type="button" class="btn btn-success btn-embossed btn-verify">{:__('审核过账')}</button>
             <button type="button" class="btn btn-info btn-embossed btn-open">{:__('打开草稿')}</button>
         </div>
+    </div>
+   
+    <div class="form-group layer-footer">
+        
     </div>
 </form>
 

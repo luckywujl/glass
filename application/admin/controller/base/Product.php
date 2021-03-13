@@ -45,16 +45,24 @@ class Product extends Backend
      */
     public function getproduct()
     {
+        $product = $this->request->param();
         //设置过滤方法
         $this->request->filter(['strip_tags', 'trim']);
         if ($this->request->isAjax()) {
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $list = $this->model
+            	 ->field('product_name')
                 ->where($where)
                 ->group('product_name')
                 ->order($sort, $order)
                 ->paginate($limit);
-            $result = array("total" => $list->total(), "rows" => $list->items());
+                $datalist = [];
+                $datalist[] = ['product_name'=>$product['product_name'],'pid'=>0];
+             foreach ($list as $index => $item) {
+                $data = ['product_name'=>$item['product_name'],'pid'=>0];
+                $datalist[] = $data;
+             }
+            $result = array("list" => $datalist,"total" => $list->total()+1);
             return json($result);
         }
         
