@@ -130,7 +130,9 @@ class Detailtemp extends Backend
         $specification_list = $specification->where($where)->select();
         $remark_list = $remark->where($where)->select();
         $this->view->assign("detailSpecificationList", $specification_list);   
-        $this->view->assign("detailRemarkList", $remark_list);     
+        $this->view->assign("detailRemarkList", $remark_list); 
+        $discount = $_REQUEST['discount'];
+        $this->view->assign("detail_discount",$discount);   
         return $this->view->fetch();
     }
 
@@ -162,7 +164,7 @@ class Detailtemp extends Backend
                     $this->error($e->getMessage());
                 }
                 if ($result !== false) {
-                    $this->success();
+                    $this->success('保存！');
                 } else {
                     $this->error(__('No rows were updated'));
                 }

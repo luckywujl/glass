@@ -35,7 +35,7 @@
 
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_product_specs')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_product_specs" data-rule="required" class="form-control selectpage" data-source="base/product/getspecs" data-field="product_specs" data-primary-key="product_specs" name="row[detail_product_specs]" type="text">
+            <input id="c-detail_product_specs" data-rule="required" class="form-control selectpage" data-source="base/product/index" data-field="product_specs" data-primary-key="product_specs" name="row[detail_product_specs]" type="text">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_isedging')}:</label>
@@ -55,7 +55,7 @@
         
          <label class="control-label col-xs-12 col-sm-1">{:__('Detail_discount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number">
+            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="{$detail_discount}">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_useposition')}:</label>
@@ -83,17 +83,17 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-2">{:__('Detail_area')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_area"  readonly="readonly" data-rule="required" class="form-control" name="row[detail_area]" type="number">
+            <input id="c-detail_area" data-rule="required" readonly="readonly" data-rule="required" class="form-control" name="row[detail_area]" type="number">
         </div>
     
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_length')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_length" readonly="readonly" class="form-control" name="row[detail_length]" type="number">
+            <input id="c-detail_length" readonly="readonly" data-rule="required" class="form-control" name="row[detail_length]" type="number">
         </div>
    
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_amount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_amount" readonly="readonly" style="color: red;" class="form-control" name="row[detail_amount]" type="number">
+            <input id="c-detail_amount" readonly="readonly" data-rule="required" style="color: red;" class="form-control" name="row[detail_amount]" type="number">
         </div>
     </div>
     <div class="form-group">
@@ -161,7 +161,7 @@
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-4"></label>
         <div class="col-xs-12 col-sm-8">
-            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="button" class="btn btn-success btn-embossed btn-accept">{:__('OK')}</button>
             <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
         </div>
     </div>

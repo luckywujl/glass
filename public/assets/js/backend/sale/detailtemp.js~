@@ -34,17 +34,42 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 							$("#c-order_custom_tel").val(data.custom_tel);
 							$("#c-order_custom_contact").val(data.custom_contact);
 							$("#c-order_custom_discount").val(data.custom_discount);
+							//将实时更新折扣参数
+							Table.api.init({
+                			extend: {
+                  		index_url: 'sale/detailtemp/index' + location.search,
+                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val(),
+                    		edit_url: 'sale/detailtemp/edit',
+                    		del_url: 'sale/detailtemp/del',
+                    		multi_url: 'sale/detailtemp/multi',
+                    		import_url: 'sale/detailtemp/import',
+                    		table: 'order_detail_temp',
+                			}
+            			});
 						},function (data) {
 							//失败的回调
 							return false;
-						})
-					},
-				});
+							})
+						},
+					});
+				$("#c-order_custom_discount").bind("keyup",function (event) {
+					Table.api.init({
+                			extend: {
+                  		index_url: 'sale/detailtemp/index' + location.search,
+                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val(),
+                    		edit_url: 'sale/detailtemp/edit',
+                    		del_url: 'sale/detailtemp/del',
+                    		multi_url: 'sale/detailtemp/multi',
+                    		import_url: 'sale/detailtemp/import',
+                    		table: 'order_detail_temp',
+                			}
+            			}); 	
+				}); 
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
                     index_url: 'sale/detailtemp/index' + location.search,
-                    add_url: 'sale/detailtemp/add',
+                    add_url: 'sale/detailtemp/add?discount=100',
                     edit_url: 'sale/detailtemp/edit',
                     del_url: 'sale/detailtemp/del',
                     multi_url: 'sale/detailtemp/multi',
@@ -98,6 +123,37 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             })
         },
         add: function () {
+        	//Controller.api.bindevent();
+        	//提交按钮
+        	  	$(document).on("click",".btn-accept",function () {
+        	  		$("#edit-form").attr("action","sale/detailtemp/edit").submit();	
+        	  	})
+        	Form.api.bindevent($("form[role=form]"), function(data, ret){//绑定时间
+            //给表单绑定新的回调函数 接收 控制器 success(msg,url,data)或者error(msg,url,data)
+            //Fast.api.close(data);//在这里关闭当前弹窗
+            //parent.location.reload();//这里刷新父页面，可以换其他代码
+            parent.$("#table").bootstrapTable('refresh',{});
+            $("#c-detail_useposition").val('');//清空使用位置
+            $("#c-detail_long").val('');//清空长度
+            $("#c-detail_wide").val('');//清空宽度
+            $("#c-detail_number").val('');//清空数量
+            $("#c-detail_area").val('');//清空面积
+            $("#c-detail_length").val('');//清空边长
+            $("#c-detail_amount").val('');//清空玻璃金额
+            $("#c-detail_hole_price").val('');//清空打孔单价
+            $("#c-detail_hole_amount").val('');//清空打孔费
+            $("#c-detail_urgent_amount").val('');//清空加急费
+            $("#c-detail_edging_amount").val('');//清空磨边费
+            $("#c-detail_other_amount").val('');//清空其它费用
+            $("#c-detail_total_amount").val('');//清空合计金额
+            //$("#c-detail_remark").val('');//清空备注
+            //$("#c-detail_specification").val('');//清空工艺要求
+            Toastr.success('保存！');
+            return false;
+        	}, function(data, ret){
+        		Toastr.success('保存！');
+           console.error("错误");
+        	});
         	$("#c-detail_product_specs").data("params",function (obj) {
         	   return {custom:{product_name:$("#c-detail_product_name").val()}};
         	});
@@ -120,7 +176,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 						function (data,ret) {
 							//填写价格信息
 							console.info(data);
-							//return false;
+							return false;
 							$("#c-detail_price").val(data.product_price);
 						},function (data) {
 							//失败的回调
@@ -176,12 +232,33 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					//$("#c-detail_amount").val(($("#c-iodetail_product_price").val()*$("#c-iodetail_NW").val()*$("#c-iodetail_discount").val()/100).toFixed(2));
 				
 				}
-				Controller.api.bindevent();
+				
         },
         edit: function () {
-        	Controller.api.bindevent();
+        	//Controller.api.bindevent();
+      
+        	Form.api.bindevent($("form[role=form]"), function(data, ret){//绑定时间
+            //给表单绑定新的回调函数 接收 控制器 success(msg,url,data)或者error(msg,url,data)
+            //Fast.api.close(data);//在这里关闭当前弹窗
+            //parent.location.reload();//这里刷新父页面，可以换其他代码
+             parent.$("#table").bootstrapTable('refresh',{});
+            
+            Toastr.success('内容');
+            return false;
+        	}, function(data, ret){
+           console.error("错误");
+        	});
+
+   
+        	//设置产品规格的过滤条件
         		$("#c-detail_product_specs").data("params",function (obj) {
         	  		 return {custom:{product_name:$("#c-detail_product_name").val()}};
+        		});
+        		//当产品名称发生变化时，清空产品规格 
+        		$("#c-detail_product_name").on('change',function(){
+          		 $("#c-detail_product_specs").selectPageClear();  
+          		 $("#c-detail_price").val('');	   
+          		 account();
         		});
         		  
         		$("#c-detail_product_specs").on('change',function(){
@@ -200,6 +277,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 							account();
 						},function (data) {
 							//失败的回调
+							account();
 							return false;
 						}) 
         		});
@@ -236,11 +314,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 				}); 
         		//提交按钮
         	  	$(document).on("click",".btn-accept",function () {
-        	  		//var newamount = $("#c-detail_amount").val();
-        	  		//var amounttotal = parent.$("#c-sale_amount").val();
-        	  		//parent.$("#c-sale_amount").val(amounttotal-oldamount+newamount);
-        	  		$("#edit-form").attr("action","sale/detailtemp/edit").submit();
-        	  		//  Fast.api.close('123456');//保存后返回数据给调用者
+        	  		$("#edit-form").attr("action","sale/detailtemp/edit").submit();	
         	  	})
         
             

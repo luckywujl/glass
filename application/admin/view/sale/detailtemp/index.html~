@@ -52,7 +52,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_discount')}:</label>
         <div class="col-xs-12 col-sm-1">
-            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="{$row.order_custom_discount|htmlentities}">
+            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="100">
         </div>
  
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_number_total')}:</label>
@@ -122,8 +122,8 @@
             {/foreach}
             </div>              
         </div> 
-       
-        <div class="col-xs-12 col-sm-6">
+       <label class="control-label col-xs-12 col-sm-1"></label>
+        <div class="col-xs-12 col-sm-5">
             <button type="button" id="new"  class="btn btn-info btn-embossed btn-new">{:__('新建')}</button>
             <button type="button" class="btn btn-success btn-embossed btn-save">{:__('暂存')}</button>  
             <button type="button" id="save"  class="btn btn-success btn-embossed btn-savedraft">{:__('保存草稿')}</button>

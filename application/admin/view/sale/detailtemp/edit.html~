@@ -5,6 +5,9 @@
         <div class="col-xs-12 col-sm-2" hidden="hidden">
             <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
         </div>
+        <div class="col-xs-12 col-sm-2" hidden="hidden">
+            <input id="c-detail_id"   class="form-control " name="row[detail_id]" type="text" value="{$row.detail_id|htmlentities}">
+        </div>
      <div class="form-group">
      &nbsp;
      </div>
