@@ -38,7 +38,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 							Table.api.init({
                 			extend: {
                   		index_url: 'sale/detailtemp/index' + location.search,
-                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val(),
+                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val()+'&order_id='+$("#c-order_id").val(),
                     		edit_url: 'sale/detailtemp/edit',
                     		del_url: 'sale/detailtemp/del',
                     		multi_url: 'sale/detailtemp/multi',
@@ -46,6 +46,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
                     		table: 'order_detail_temp',
                 			}
             			});
+            			//暂存
+            			$("#add-form").attr("action","sale/detailtemp/save").submit();
 						},function (data) {
 							//失败的回调
 							return false;
@@ -56,7 +58,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					Table.api.init({
                 			extend: {
                   		index_url: 'sale/detailtemp/index' + location.search,
-                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val(),
+                    		add_url: 'sale/detailtemp/add?discount='+$("#c-order_custom_discount").val()+'&order_id='+$("#c-order_id").val(),
                     		edit_url: 'sale/detailtemp/edit',
                     		del_url: 'sale/detailtemp/del',
                     		multi_url: 'sale/detailtemp/multi',
@@ -69,7 +71,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             Table.api.init({
                 extend: {
                     index_url: 'sale/detailtemp/index' + location.search,
-                    add_url: 'sale/detailtemp/add?discount=100',
+                    add_url: 'sale/detailtemp/add?discount=100&order_id='+$("#c-order_id").val(),
                     edit_url: 'sale/detailtemp/edit',
                     del_url: 'sale/detailtemp/del',
                     multi_url: 'sale/detailtemp/multi',
@@ -85,6 +87,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
                 url: $.fn.bootstrapTable.defaults.extend.index_url,
                 pk: 'detail_id',
                 sortName: 'detail_id',
+                sortOrder:'asc',
                 columns: [
                     [
                         {checkbox: true},
@@ -126,7 +129,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	//Controller.api.bindevent();
         	//提交按钮
         	  	$(document).on("click",".btn-accept",function () {
-        	  		$("#edit-form").attr("action","sale/detailtemp/edit").submit();	
+        	  		$("#add-form").attr("action","sale/detailtemp/add").submit();	
         	  	})
         	Form.api.bindevent($("form[role=form]"), function(data, ret){//绑定时间
             //给表单绑定新的回调函数 接收 控制器 success(msg,url,data)或者error(msg,url,data)
@@ -148,6 +151,18 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             $("#c-detail_total_amount").val('');//清空合计金额
             //$("#c-detail_remark").val('');//清空备注
             //$("#c-detail_specification").val('');//清空工艺要求
+            //更新父表中的字段，实现无刷新更新
+            parent.$("#c-order_number_total").val(data[0]['number']);
+            parent.$("#c-order_length_total").val(data[0]['length']);
+            parent.$("#c-order_area_total").val(data[0]['area']);
+            parent.$("#c-order_amount_total").val(data[0]['amount'].toFixed(2));
+            parent.$("#c-order_hole_total").val(data[0]['hole']);
+            parent.$("#c-order_hole_amount_total").val(data[0]['hole_amount']);
+            parent.$("#c-order_edging_amount_total").val(data[0]['edging_amount']);
+            parent.$("#c-order_urgent_amount_total").val(data[0]['urgent_amount']);
+            parent.$("#c-order_other_amount_total").val(data[0]['other_amount']);
+            parent.$("#c-order_total_amount_total").val(data[0]['total_amount'].toFixed(2));
+            parent.$("#add-form").attr("action","sale/detailtemp/save").submit();
             Toastr.success('保存！');
             return false;
         	}, function(data, ret){
@@ -244,8 +259,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             //parent.location.reload();//这里刷新父页面，可以换其他代码
              parent.$("#table").bootstrapTable('refresh',{});
             
-            Toastr.success('内容');
-            return false;
+            //Toastr.success('内容');
+            //return false;
         	}, function(data, ret){
            console.error("错误");
         	});

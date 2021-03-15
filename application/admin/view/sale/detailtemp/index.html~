@@ -3,6 +3,9 @@
 
     <div class="panel-body">
     <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="col-xs-12 col-sm-2">
+            <input id="c-order_id"  class="form-control" name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
+        </div>
 
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_code')}:</label>
@@ -52,7 +55,7 @@
     <div class="form-group">
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_custom_discount')}:</label>
         <div class="col-xs-12 col-sm-1">
-            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="100">
+            <input id="c-order_custom_discount" class="form-control" name="row[order_custom_discount]" type="number" value="{$row.order_custom_discount|htmlentities}">
         </div>
  
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_number_total')}:</label>
