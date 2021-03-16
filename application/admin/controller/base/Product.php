@@ -68,41 +68,7 @@ class Product extends Backend
         
     }
     
-    /**
-     * 获取规格
-     */
-    public function getspecs()
-    {
-    	  $product = $this->request->param();
-    	//  $product = input('?product');
-    	if(input('?product_specs')) {
-        //设置过滤方法
-        $this->request->filter(['strip_tags', 'trim']);
-        if ($this->request->isAjax()) {
-            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
-            $list = $this->model
-                ->where($where)
-                ->where(['product_name'=>$product['product_name']])
-                ->order($sort, $order)
-                ->paginate($limit);
-            $result = array("total" => $list->total(), "rows" => $list->items());
-            return json($result);
-        }
-      } else {
-      	//设置过滤方法
-        $this->request->filter(['strip_tags', 'trim']);
-        if ($this->request->isAjax()) {
-            list($where, $sort, $order, $offset, $limit) = $this->buildparams();
-            $list = $this->model
-                ->where($where)
-                ->where('product_name',$product['product_name'])
-                ->order($sort, $order)
-                ->paginate($limit);
-            $result = array("total" => $list->total(), "rows" => $list->items());
-            return json($result);
-        }
-      } 
-    }
+    
     
     /**
      * 获取价格

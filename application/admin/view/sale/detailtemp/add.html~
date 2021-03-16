@@ -55,7 +55,7 @@
         
          <label class="control-label col-xs-12 col-sm-1">{:__('Detail_discount')}:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="{$detail_discount}">
+            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="{$row.discount}">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Detail_useposition')}:</label>

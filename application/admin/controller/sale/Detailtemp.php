@@ -115,9 +115,11 @@ class Detailtemp extends Backend
                         $this->model->validateFailException(true)->validate($validate);
                     }
                     $result = $this->model->allowField(true)->save($params);
-                    $order_sum=$this->reorder();
+                    $this->reorder();
+                    $order_sum=$this->total();
                     Db::commit();
-                    $order_sum=$this->reorder();
+                    $this->reorder();
+                    $order_sum=$this->total();
                 } catch (ValidateException $e) {
                     Db::rollback();
                     $this->error($e->getMessage());
@@ -165,8 +167,10 @@ class Detailtemp extends Backend
                 try {              
 				        $result = $this->model
                     		->where('detail_id',$params['detail_id'])
-                    		->update($params);                    
+                    		->update($params);   
+                    $order_sum=$this->total();                
                     Db::commit();
+                    $order_sum=$this->total();
                 } catch (ValidateException $e) {
                     Db::rollback();
                     $this->error($e->getMessage());
@@ -178,7 +182,7 @@ class Detailtemp extends Backend
                     $this->error($e->getMessage());
                 }
                 if ($result !== false) {
-                    $this->success('保存！');
+                    $this->success('保存！',null,$order_sum);
                 } else {
                     $this->error(__('No rows were updated'));
                 }
@@ -207,6 +211,50 @@ class Detailtemp extends Backend
         $this->view->assign("row", $row);
         return $this->view->fetch();
     }
+    /**
+     * 删除
+     */
+    public function del($ids = "")
+    {
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $ids = $ids ? $ids : $this->request->post("ids");
+        if ($ids) {
+            $pk = $this->model->getPk();
+            $adminIds = $this->getDataLimitAdminIds();
+            if (is_array($adminIds)) {
+                $this->model->where($this->dataLimitField, 'in', $adminIds);
+            }
+            $list = $this->model->where($pk, 'in', $ids)->select();
+
+            $count = 0;
+            Db::startTrans();
+            try {
+                foreach ($list as $k => $v) {
+                    $count += $v->delete();
+                }
+               $this->reorder();
+               $order_sum=$this->total();
+               Db::commit();
+               $this->reorder();
+               $order_sum=$this->total();
+            } catch (PDOException $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            }
+            if ($count) {
+                $this->success('已删除！',null,$order_sum);
+            } else {
+                $this->error(__('No rows were deleted'));
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
     
     /**
     *排序
@@ -237,15 +285,35 @@ class Detailtemp extends Backend
     	}
     	$this->model->saveall($info);
     	Db::commit();
+    	}
+    	/**
+    	*合计
+    	*/
+    	public function total() 
+    	{
     	//2、合计
+    	list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+    	$main = new sale\Maintemp();
+		$main_info = $main
+				->where($where)
+				->where(['order_operator'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
+				->find();
     	$detail_sum = $this->model
     				->field('sum(detail_number) as number,sum(detail_area) as area,sum(detail_length) as length,sum(detail_area) as area,sum(detail_amount) as amount,sum(detail_hole) as hole,sum(detail_hole_amount) as hole_amount,sum(detail_edging_amount) as edging_amount,sum(detail_urgent_amount) as urgent_amount,sum(detail_other_amount)as other_amount,sum(detail_total_amount) as total_amount')
     				->where('order_id',$main_info['order_id'])
     				->select();
     	return $detail_sum;
-    	//$main->where('order_id',$main_info['order_id'])->update(['order_number_total'=>$detail_sum[0]['number'],'order_length_total'=>$detail_sum[0]['length'],'order_area_total'=>$detail_sum[0]['area'],'order_amount_total'=>$detail_sum[0]['amount'],'order_hole_total'=>$detail_sum[0]['hole'],'order_hole_amount_total'=>$detail_sum[0]['hole_amount'],'order_edging_amount_total'=>$detail_sum[0]['edging_amount'],'order_urgent_amount_total'=>$detail_sum[0]['urgent_amount'],'order_other_amount_total'=>$detail_sum[0]['other_amount'],'order_total_amount_total'=>$detail_sum[0]['total_amount']]);
-    	
-    	
+    	$main->where('order_id',$main_info['order_id'])
+    			->update(['order_number_total'=>$detail_sum[0]['number'],
+    						 'order_length_total'=>$detail_sum[0]['length'],
+    						 'order_area_total'=>$detail_sum[0]['area'],
+    						 'order_amount_total'=>$detail_sum[0]['amount'],
+    						 'order_hole_total'=>$detail_sum[0]['hole'],
+    						 'order_hole_amount_total'=>$detail_sum[0]['hole_amount'],
+    						 'order_edging_amount_total'=>$detail_sum[0]['edging_amount'],
+    						 'order_urgent_amount_total'=>$detail_sum[0]['urgent_amount'],
+    						 'order_other_amount_total'=>$detail_sum[0]['other_amount'],
+    						 'order_total_amount_total'=>$detail_sum[0]['total_amount']]);
     }
     /**
      * 暂存
@@ -269,6 +337,39 @@ class Detailtemp extends Backend
                 }
             }  
         }
+    }
+    
+    /**
+     * 新建
+     */
+    public function new()
+    {
+				$main = new sale\Maintemp();
+				$main_info = $main
+					 ->where(['order_operator'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
+					 ->select();
+				$order_id = array_column($main_info,'order_id');	
+				$result = 0;             
+            Db::startTrans();
+            $result = $this->model
+                ->where('order_id','IN',$order_id)
+                ->delete();//删除临时子表
+            $result = $main
+					 ->where(['order_operator'=>$this->auth->nickname,'company_id'=>$this->auth->company_id])
+					 ->delete();//删除临时父表
+				$params=[];
+				$params['order_operator'] = $this->auth->nickname;
+				$params['company_id'] = $this->auth->company_id;
+				$result = $main->save($params);	 
+            Db::commit();
+            $order_id =$main->order_id;//产品库产品ID	
+            if ($result) {
+                        //$this->success();
+                        $this->success('新建单据',null,$order_id);
+                    } else {
+                        $this->error(__('No rows were delete'));
+                    }
+
     }
 
 

@@ -57,7 +57,7 @@ class Product extends Backend
                 ->order($sort, $order)
                 ->paginate($limit);
                 $datalist = [];
-               // $datalist[] = ['product_name'=>$product['product_name'],'pid'=>0];
+                $datalist[] = ['product_name'=>$product['product_name'],'pid'=>0];
              foreach ($list as $index => $item) {
                 $data = ['product_name'=>$item['product_name'],'pid'=>0];
                 $datalist[] = $data;

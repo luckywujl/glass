@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/add.html";i:1615819944;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1615636564;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1615636564;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1615636564;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:96:"/home/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/add.html";i:1615897283;s:81:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1615636564;s:78:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1615636564;s:80:"/home/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1615636564;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -60,7 +60,7 @@
                             <div class="content">
                                 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
-    <div class="col-xs-12 col-sm-8" >
+    <div class="col-xs-12 col-sm-8" hidden="hidden">
         <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
     </div>
      <div class="form-group">

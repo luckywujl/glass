@@ -54,6 +54,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 							})
 						},
 					});
+					//手动输入折扣时，初始化表格参数配置将折扣带入
 				$("#c-order_custom_discount").bind("keyup",function (event) {
 					Table.api.init({
                 			extend: {
@@ -67,6 +68,53 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
                 			}
             			}); 	
 				}); 
+				//新建 按钮
+				$(document).on("click",".btn-new",function () {   
+			   	layer.confirm('新建单据，是否保存这些已有数据?', {btn: ['是','否'] },
+			   	function(index){
+        				layer.close(index);
+          					  
+       			 },
+        			function(index){
+           		 	layer.close(index);
+           		 	Fast.api.ajax({
+        	  		 	url:'sale/detailtemp/new',
+        	  			},function (data,ret) {
+        	  				$("#c-order_id").val(ret.data);
+        	  				$("#c-order_code").val('');
+        	  				$("#c-order_saleman").val('');
+        	  				$("#c-order_saleman").selectPageClear();
+        	  				
+        	  				$("#c-order_custom_id").val('');
+        	  				$("#c-order_custom_id").selectPageClear();
+        	  				$("#c-order_custom_name").val('');
+        	  				$("#c-order_custom_contact").val('');
+        	  				$("#c-order_custom_tel").val('');
+        	  				$("#c-order_custom_address").val('');
+        	  				$("#c-order_custom_discount").val('100');
+        	  				$("#c-order_number_total").val('0');//件数归零
+        	  				$("#c-order_length_total").val('');
+        	  				$("#c-order_area_total").val('');
+        	  				$("#c-order_amount_total").val('');
+        	  				$("#c-order_hole_total").val('');
+        	  				$("#c-order_hole_amount_total").val('');
+        	  				$("#c-order_edging_amount_total").val('');
+        	  				$("#c-order_urgent_amount_total").val('');
+        	  				$("#c-order_other_amount_total").val('');
+        	  				$("#c-order_total_amount_total").val('');							
+        	  				$("table").bootstrapTable('refresh');//刷新表格
+        	  				return false;
+        	  			},function (data) {			
+        	  		 		return false;
+        	  			});
+        			}
+			   	);
+            });
+				
+				//暂存按钮
+        	  	$(document).on("click",".btn-save",function () {
+        	  		$("#add-form").attr("action","sale/detailtemp/save").submit();
+        	  	})
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -154,7 +202,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             //更新父表中的字段，实现无刷新更新
             parent.$("#c-order_number_total").val(data[0]['number']);
             parent.$("#c-order_length_total").val(data[0]['length']);
-            parent.$("#c-order_area_total").val(data[0]['area']);
+            parent.$("#c-order_area_total").val(data[0]['area'].toFixed(2));
             parent.$("#c-order_amount_total").val(data[0]['amount'].toFixed(2));
             parent.$("#c-order_hole_total").val(data[0]['hole']);
             parent.$("#c-order_hole_amount_total").val(data[0]['hole_amount']);
@@ -258,7 +306,18 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             //Fast.api.close(data);//在这里关闭当前弹窗
             //parent.location.reload();//这里刷新父页面，可以换其他代码
              parent.$("#table").bootstrapTable('refresh',{});
-            
+            //更新父表中的字段，实现无刷新更新
+            parent.$("#c-order_number_total").val(data[0]['number']);
+            parent.$("#c-order_length_total").val(data[0]['length']);
+            parent.$("#c-order_area_total").val(data[0]['area'].toFixed(2));
+            parent.$("#c-order_amount_total").val(data[0]['amount'].toFixed(2));
+            parent.$("#c-order_hole_total").val(data[0]['hole']);
+            parent.$("#c-order_hole_amount_total").val(data[0]['hole_amount']);
+            parent.$("#c-order_edging_amount_total").val(data[0]['edging_amount']);
+            parent.$("#c-order_urgent_amount_total").val(data[0]['urgent_amount']);
+            parent.$("#c-order_other_amount_total").val(data[0]['other_amount']);
+            parent.$("#c-order_total_amount_total").val(data[0]['total_amount'].toFixed(2));
+            parent.$("#add-form").attr("action","sale/detailtemp/save").submit();
             //Toastr.success('内容');
             //return false;
         	}, function(data, ret){
