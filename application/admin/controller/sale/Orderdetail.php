@@ -5,26 +5,29 @@ namespace app\admin\controller\sale;
 use app\common\controller\Backend;
 
 /**
- * 订单信息
+ * 订单明细
  *
  * @icon fa fa-circle-o
  */
-class Ordermain extends Backend
+class Orderdetail extends Backend
 {
     
     /**
-     * Ordermain模型对象
-     * @var \app\admin\model\sale\Ordermain
+     * Orderdetail模型对象
+     * @var \app\admin\model\sale\Orderdetail
      */
-    protected $model = null;
+      protected $model = null;
+    	protected $dataLimit = 'personal';
+    	protected $dataLimitField = 'company_id';
+    	protected $dataCreateField = null;
 
     public function _initialize()
     {
         parent::_initialize();
-        $this->model = new \app\admin\model\sale\Ordermain;
-        $this->view->assign("orderFreightTypeList", $this->model->getOrderFreightTypeList());
-        $this->view->assign("orderIsdeliveryList", $this->model->getOrderIsdeliveryList());
-        $this->view->assign("orderStatusList", $this->model->getOrderStatusList());
+        $this->model = new \app\admin\model\sale\Orderdetail;
+        $this->view->assign("detailIsurgentList", $this->model->getDetailIsurgentList());
+        $this->view->assign("detailIsedgingList", $this->model->getDetailIsedgingList());
+        $this->view->assign("detailStatusList", $this->model->getDetailStatusList());
     }
 
     public function import()

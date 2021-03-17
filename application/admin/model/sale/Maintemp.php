@@ -71,7 +71,12 @@ class Maintemp extends Model
         return isset($list[$value]) ? $list[$value] : '';
     }
 
-
+	 public function getOrderStatusTextAttr($value, $data)
+    {
+        $value = $value ? $value : (isset($data['order_status']) ? $data['order_status'] : '');
+        $list = $this->getOrderStatusList();
+        return isset($list[$value]) ? $list[$value] : '';
+    }
     
 
     protected function setOrderDatetimeAttr($value)

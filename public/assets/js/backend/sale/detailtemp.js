@@ -7,7 +7,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	$(".btn-edit").data("area",["90%","90%"]);
         	$(".btn-edit").data("title",'修改');
         	$(".btn-del").data("success",function (e,data,ret) {
-          
+        		      //刷新表格
+        	      	$("#table").bootstrapTable('refresh',{});
+        		      //先活清空,以防止删完后，返回的数据为null无法改写页面
+            		$("#c-order_number_total").val('');
+            		$("#c-order_number_total").val('');
+            		$("#c-order_length_total").val('');
+            		$("#c-order_area_total").val('');
+            		$("#c-order_amount_total").val('');
+            		$("#c-order_hole_total").val('');
+            		$("#c-order_hole_amount_total").val('');
+            		$("#c-order_edging_amount_total").val('');
+            		$("#c-order_urgent_amount_total").val('');
+            		$("#c-order_other_amount_total").val('');
+            		$("#c-order_total_amount_total").val('');
+            		//再填写
             		$("#c-order_number_total").val(data['data'][0]['number']);
             		$("#c-order_length_total").val(data['data'][0]['length']);
             		$("#c-order_area_total").val(data['data'][0]['area'].toFixed(4));
@@ -129,6 +143,15 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  	$(document).on("click",".btn-save",function () {
         	  		$("#add-form").attr("action","sale/detailtemp/save").submit();
         	  	})
+        	  	// 保存草稿
+				$(document).on("click",".btn-savedraft",function () {
+					if ($("#c-order_number").val()=='0'|'') {
+					  Layer.alert('请添加产品明细，再保存！');
+					  return false;
+					}else {
+					$("#add-form").attr("action","sale/detailtemp/savedraft").submit();
+					}		
+				});
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -151,6 +174,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
                 pk: 'detail_id',
                 sortName: 'detail_id',
                 sortOrder:'asc',
+                search:false,
+                commonSearch:false,
                 columns: [
                     [
                         {checkbox: true},
@@ -186,6 +211,21 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             Table.api.bindevent(table);
             table.on('post-body.bs.table',function (e,settings,json,xhr) {
             	$(".btn-delone").data("success",function (e,data,ret) {
+            		//刷新表格
+        	      	$("#table").bootstrapTable('refresh',{});
+            		//先活清空,以防止删完后，返回的数据为null无法改写页面
+            		$("#c-order_number_total").val('');
+            		$("#c-order_number_total").val('');
+            		$("#c-order_length_total").val('');
+            		$("#c-order_area_total").val('');
+            		$("#c-order_amount_total").val('');
+            		$("#c-order_hole_total").val('');
+            		$("#c-order_hole_amount_total").val('');
+            		$("#c-order_edging_amount_total").val('');
+            		$("#c-order_urgent_amount_total").val('');
+            		$("#c-order_other_amount_total").val('');
+            		$("#c-order_total_amount_total").val('');
+            		//再填写
             		$("#c-order_number_total").val(data['data'][0]['number']);
             		$("#c-order_number_total").val(data['data'][0]['number']);
             		$("#c-order_length_total").val(data['data'][0]['length']);
@@ -441,27 +481,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         },
         api: {
             bindevent: function () {
-                Form.api.bindevent($("form[role=form]"),function (data,ret) {
-                  //数据保存成功后执行，清除产品重量接头数，再打印
-                  $("#c-order_code").val('123456');
-                
-                  //打印单据
-                  //Fast.api.open('product/product/printingone?product_id='+data.product_id,'打印标签',{}); 	
-                 
-                  //刷新表格
-   				  // $("#table").bootstrapTable('refresh');
-   				   }, function(data, ret){
-  						Toastr.success("失败");
-				   	}, function(success, error){
-
-					//bindevent的第三个参数为提交前的回调
-					//如果我们需要在表单提交前做一些数据处理，则可以在此方法处理
-					//注意如果我们需要阻止表单，可以在此使用return false;即可
-					//如果我们处理完成需要再次提交表单则可以使用submit提交,如下
-					//Form.api.submit(this, success, error);
-					//return false;
-                });
-                return false;
+                Form.api.bindevent($("form[role=form]"));
             }
         }
     };
