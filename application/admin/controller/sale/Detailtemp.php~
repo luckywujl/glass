@@ -211,6 +211,50 @@ class Detailtemp extends Backend
         $this->view->assign("row", $row);
         return $this->view->fetch();
     }
+    /**
+     * 删除
+     */
+    public function del($ids = "")
+    {
+        if (!$this->request->isPost()) {
+            $this->error(__("Invalid parameters"));
+        }
+        $ids = $ids ? $ids : $this->request->post("ids");
+        if ($ids) {
+            $pk = $this->model->getPk();
+            $adminIds = $this->getDataLimitAdminIds();
+            if (is_array($adminIds)) {
+                $this->model->where($this->dataLimitField, 'in', $adminIds);
+            }
+            $list = $this->model->where($pk, 'in', $ids)->select();
+
+            $count = 0;
+            Db::startTrans();
+            try {
+                foreach ($list as $k => $v) {
+                    $count += $v->delete();
+                }
+               $this->reorder();
+               $order_sum=$this->total();
+               Db::commit();
+               $this->reorder();
+               $order_sum=$this->total();
+            } catch (PDOException $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->error($e->getMessage());
+            }
+            if ($count) {
+                $this->success('已删除！',null,$order_sum);
+            } else {
+                $this->error(__('No rows were deleted'));
+            }
+        }
+        $this->error(__('Parameter %s can not be empty', 'ids'));
+    }
+
     
     /**
     *排序
@@ -258,7 +302,7 @@ class Detailtemp extends Backend
     				->field('sum(detail_number) as number,sum(detail_area) as area,sum(detail_length) as length,sum(detail_area) as area,sum(detail_amount) as amount,sum(detail_hole) as hole,sum(detail_hole_amount) as hole_amount,sum(detail_edging_amount) as edging_amount,sum(detail_urgent_amount) as urgent_amount,sum(detail_other_amount)as other_amount,sum(detail_total_amount) as total_amount')
     				->where('order_id',$main_info['order_id'])
     				->select();
-    	return $detail_sum;
+    	
     	$main->where('order_id',$main_info['order_id'])
     			->update(['order_number_total'=>$detail_sum[0]['number'],
     						 'order_length_total'=>$detail_sum[0]['length'],
@@ -270,6 +314,7 @@ class Detailtemp extends Backend
     						 'order_urgent_amount_total'=>$detail_sum[0]['urgent_amount'],
     						 'order_other_amount_total'=>$detail_sum[0]['other_amount'],
     						 'order_total_amount_total'=>$detail_sum[0]['total_amount']]);
+     return $detail_sum;
     }
     /**
      * 暂存

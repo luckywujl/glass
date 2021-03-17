@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/add.html";i:1615799061;s:97:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1615457561;s:94:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1615457561;s:96:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1615457561;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:4:{s:112:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/public/../application/admin/view/sale/detailtemp/add.html";i:1615944104;s:97:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/layout/default.html";i:1615457561;s:94:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/common/meta.html";i:1615457561;s:96:"/media/luckywujl/data/www/admin/localhost_9004/wwwroot/application/admin/view/common/script.html";i:1615457561;}*/ ?>
 <!DOCTYPE html>
 <html lang="<?php echo $config['language']; ?>">
     <head>
@@ -61,7 +61,7 @@
                                 <form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
 
     <div class="col-xs-12 col-sm-8" hidden="hidden">
-            <input id="c-detail_order_code"  class="form-control" name="row[detail_order_code]" type="text" >
+        <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="<?php echo htmlentities($row['order_id']); ?>">
     </div>
      <div class="form-group">
      &nbsp;
@@ -115,7 +115,7 @@
         
          <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_discount'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="<?php echo $detail_discount; ?>">
+            <input id="c-detail_discount" class="form-control" name="row[detail_discount]" type="number" value="<?php echo $row['discount']; ?>">
         </div>
         
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_useposition'); ?>:</label>
@@ -153,7 +153,7 @@
    
         <label class="control-label col-xs-12 col-sm-1"><?php echo __('Detail_amount'); ?>:</label>
         <div class="col-xs-12 col-sm-2">
-            <input id="c-detail_amount" readonly="readonly" data-rule="required" style="color: red;" class="form-control" name="row[detail_amount]" type="number">
+            <input id="c-detail_amount" readonly="readonly"  style="color: red;" class="form-control" name="row[detail_amount]" type="number">
         </div>
     </div>
     <div class="form-group">
@@ -221,7 +221,7 @@
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-4"></label>
         <div class="col-xs-12 col-sm-8">
-            <button type="button" class="btn btn-success btn-embossed btn-accept"><?php echo __('OK'); ?></button>
+            <button type="submit" class="btn btn-success btn-embossed disabled"><?php echo __('OK'); ?></button>
             <button type="reset" class="btn btn-default btn-embossed"><?php echo __('Reset'); ?></button>
         </div>
     </div>

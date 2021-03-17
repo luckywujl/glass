@@ -6,6 +6,20 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	$(".btn-add").data("area",["90%","90%"]);
         	$(".btn-edit").data("area",["90%","90%"]);
         	$(".btn-edit").data("title",'修改');
+        	$(".btn-del").data("success",function (e,data,ret) {
+          
+            		$("#c-order_number_total").val(data['data'][0]['number']);
+            		$("#c-order_length_total").val(data['data'][0]['length']);
+            		$("#c-order_area_total").val(data['data'][0]['area'].toFixed(4));
+            		$("#c-order_amount_total").val(data['data'][0]['amount'].toFixed(2));
+            		$("#c-order_hole_total").val(data['data'][0]['hole']);
+            		$("#c-order_hole_amount_total").val(data['data'][0]['hole_amount']);
+            		$("#c-order_edging_amount_total").val(data['data'][0]['edging_amount']);
+            		$("#c-order_urgent_amount_total").val(data['data'][0]['urgent_amount']);
+            		$("#c-order_other_amount_total").val(data['data'][0]['other_amount']);
+            		$("#c-order_total_amount_total").val(data['data'][0]['total_amount'].toFixed(2));
+							
+            	});
         	//$(".btn-add").data("title",'添加');
         
         	Controller.api.bindevent();
@@ -129,6 +143,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             });
 
             var table = $("#table");
+            
 
             // 初始化表格
             table.bootstrapTable({
@@ -165,10 +180,25 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
                     ]
                 ]
             });
+            
 
             // 为表格绑定事件
             Table.api.bindevent(table);
-            table.on('post-body.bs.table',function () {
+            table.on('post-body.bs.table',function (e,settings,json,xhr) {
+            	$(".btn-delone").data("success",function (e,data,ret) {
+            		$("#c-order_number_total").val(data['data'][0]['number']);
+            		$("#c-order_number_total").val(data['data'][0]['number']);
+            		$("#c-order_length_total").val(data['data'][0]['length']);
+            		$("#c-order_area_total").val(data['data'][0]['area'].toFixed(4));
+            		$("#c-order_amount_total").val(data['data'][0]['amount'].toFixed(2));
+            		$("#c-order_hole_total").val(data['data'][0]['hole']);
+            		$("#c-order_hole_amount_total").val(data['data'][0]['hole_amount']);
+            		$("#c-order_edging_amount_total").val(data['data'][0]['edging_amount']);
+            		$("#c-order_urgent_amount_total").val(data['data'][0]['urgent_amount']);
+            		$("#c-order_other_amount_total").val(data['data'][0]['other_amount']);
+            		$("#c-order_total_amount_total").val(data['data'][0]['total_amount'].toFixed(2));
+							
+            	});
             	$(".btn-editone").data("area",["90%","90%"]);
             	$(".btn-editone").data("title",'修改');
             })
@@ -210,12 +240,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             parent.$("#c-order_urgent_amount_total").val(data[0]['urgent_amount']);
             parent.$("#c-order_other_amount_total").val(data[0]['other_amount']);
             parent.$("#c-order_total_amount_total").val(data[0]['total_amount'].toFixed(2));
-            parent.$("#add-form").attr("action","sale/detailtemp/save").submit();
-            Toastr.success('保存！');
+            //parent.$("#add-form").attr("action","sale/detailtemp/save").submit();
+            
             return false;
         	}, function(data, ret){
-        		Toastr.success('保存！');
-           console.error("错误");
+        		
+           
         	});
         	$("#c-detail_product_specs").data("params",function (obj) {
         	   return {custom:{product_name:$("#c-detail_product_name").val()}};
@@ -303,7 +333,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
       
         	Form.api.bindevent($("form[role=form]"), function(data, ret){//绑定时间
             //给表单绑定新的回调函数 接收 控制器 success(msg,url,data)或者error(msg,url,data)
-            //Fast.api.close(data);//在这里关闭当前弹窗
+            //
             //parent.location.reload();//这里刷新父页面，可以换其他代码
              parent.$("#table").bootstrapTable('refresh',{});
             //更新父表中的字段，实现无刷新更新
@@ -317,9 +347,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
             parent.$("#c-order_urgent_amount_total").val(data[0]['urgent_amount']);
             parent.$("#c-order_other_amount_total").val(data[0]['other_amount']);
             parent.$("#c-order_total_amount_total").val(data[0]['total_amount'].toFixed(2));
-            parent.$("#add-form").attr("action","sale/detailtemp/save").submit();
-            //Toastr.success('内容');
-            //return false;
+            
+            Fast.api.close();//在这里关闭当前弹窗
+            return false;
         	}, function(data, ret){
            console.error("错误");
         	});

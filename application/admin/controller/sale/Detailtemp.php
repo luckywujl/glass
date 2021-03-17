@@ -302,7 +302,7 @@ class Detailtemp extends Backend
     				->field('sum(detail_number) as number,sum(detail_area) as area,sum(detail_length) as length,sum(detail_area) as area,sum(detail_amount) as amount,sum(detail_hole) as hole,sum(detail_hole_amount) as hole_amount,sum(detail_edging_amount) as edging_amount,sum(detail_urgent_amount) as urgent_amount,sum(detail_other_amount)as other_amount,sum(detail_total_amount) as total_amount')
     				->where('order_id',$main_info['order_id'])
     				->select();
-    	return $detail_sum;
+    	
     	$main->where('order_id',$main_info['order_id'])
     			->update(['order_number_total'=>$detail_sum[0]['number'],
     						 'order_length_total'=>$detail_sum[0]['length'],
@@ -314,6 +314,7 @@ class Detailtemp extends Backend
     						 'order_urgent_amount_total'=>$detail_sum[0]['urgent_amount'],
     						 'order_other_amount_total'=>$detail_sum[0]['other_amount'],
     						 'order_total_amount_total'=>$detail_sum[0]['total_amount']]);
+     return $detail_sum;
     }
     /**
      * 暂存
