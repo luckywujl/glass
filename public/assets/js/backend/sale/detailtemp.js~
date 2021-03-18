@@ -101,7 +101,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 			   	layer.confirm('新建单据，是否保存这些已有数据?', {btn: ['是','否'] },
 			   	function(index){
         				layer.close(index);
-          					  
+          			if ($("#c-order_number_total").val()==''||$("#c-order_number_total").val()=='0'){
+					     Layer.alert('请添加产品明细，再保存！');
+					     return false;
+					   }else {
+					     $("#add-form").attr("action","sale/detailtemp/savedraft").submit();
+					   }				  
        			 },
         			function(index){
            		 	layer.close(index);
@@ -131,6 +136,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  				$("#c-order_other_amount_total").val('');
         	  				$("#c-order_total_amount_total").val('');							
         	  				$("table").bootstrapTable('refresh');//刷新表格
+        	  				document.getElementById("btn-new").setAttribute("disabled",true);
         	  				return false;
         	  			},function (data) {			
         	  		 		return false;
@@ -143,6 +149,15 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  	$(document).on("click",".btn-save",function () {
         	  		$("#add-form").attr("action","sale/detailtemp/save").submit();
         	  	})
+        	  	// 保存草稿
+				$(document).on("click",".btn-savedraft",function () {
+					if ($("#c-order_number_total").val()==''||$("#c-order_number_total").val()=='0') {
+					  Layer.alert('请添加产品明细，再保存！');
+					  return false;
+					}else {
+					$("#add-form").attr("action","sale/detailtemp/savedraft").submit();
+					}		
+				});
             // 初始化表格参数配置
             Table.api.init({
                 extend: {

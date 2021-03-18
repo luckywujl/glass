@@ -326,7 +326,7 @@ class Detailtemp extends Backend
             $params = $this->request->post("row/a");
             if ($params) {
                 $params = $this->preExcludeFields($params);
-                $params['order_datetime'] = strtotime($params['order_datetime']) ? strtotime($params['order_datetime']) : 0;
+                //$params['sale_datetime'] = strtotime($params['sale_datetime']) ? strtotime($params['sale_datetime']) : 0;
                 $result = false;
 				    $result = $main_temp
                     		->where('order_id',$params['order_id'])
