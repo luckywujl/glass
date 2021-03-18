@@ -113,7 +113,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
            		 	Fast.api.ajax({
         	  		 	url:'sale/detailtemp/new',
         	  			},function (data,ret) {
-        	  				$("#c-order_id").val(ret.data);
+        	  				$("#c-order_id").val(ret.data['order_id']);
         	  				$("#c-order_code").val('');
         	  				$("#c-order_saleman").val('');
         	  				$("#c-order_saleman").selectPageClear();
@@ -136,7 +136,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  				$("#c-order_other_amount_total").val('');
         	  				$("#c-order_total_amount_total").val('');							
         	  				$("table").bootstrapTable('refresh');//刷新表格
-        	  				document.getElementById(".btn-new").setAttribute("disabled",true);
+        	  				document.getElementById("new").setAttribute("disabled",true);
         	  				return false;
         	  			},function (data) {			
         	  		 		return false;
@@ -155,9 +155,45 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					  Layer.alert('请添加产品明细，再保存！');
 					  return false;
 					}else {
+						
 					$("#add-form").attr("action","sale/detailtemp/savedraft").submit();
 					}		
 				});
+				// 审核过账
+				$(document).on("click",".btn-verify",function () {
+					if ($("#c-order_number_total").val()==''||$("#c-order_number_total").val()=='0') {
+					  Layer.alert('请添加产品明细，再保存！');
+					  return false;
+					}else {
+					$("#add-form").attr("action","sale/detailtemp/verify").submit();
+					}		
+				});
+				//打印
+				$(document).on("click",".btn-printing",function () {
+					var order_code = $("#c-order_code").val();
+					if (!order_code==''){
+						$.ajax({
+                        url: "sale/detailtemp/printing",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {order_code:$("#c-order_code").val()},
+                        success: function (ret) {
+                            var options ={
+                                templateCode:'SCRWD',
+                                data:ret.data,
+                                list:ret.list
+                            };
+                            Printing.api.printTemplate(options);
+                            return false;
+                        }, error: function (e) {
+                            Backend.api.toastr.error(e.message);
+                        }
+                    });	
+					}else {
+						Layer.alert('请先保存，再打印！');
+					}
+					
+			   	});
             // 初始化表格参数配置
             Table.api.init({
                 extend: {
@@ -487,7 +523,56 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         },
         api: {
             bindevent: function () {
-                Form.api.bindevent($("form[role=form]"));
+                Form.api.bindevent($("form[role=form]"),function (data,ret) {
+                  //数据保存成功后执行，清除产品重量接头数，再打印
+                  
+                  if (data['order_code']!==null) {
+                  	$("#c-order_code").val(data['order_code']);
+                  	document.getElementById("new").removeAttribute("disabled");
+                  	layer.confirm('保存成功，是否打印生产任务单?', {btn: ['是','否'] },
+			   			function(index){
+        						layer.close(index);
+        						//打印
+          					$.ajax({
+                        url: "sale/detailtemp/printing",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {order_code:$("#c-order_code").val()},
+                        success: function (ret) {
+                            var options ={
+                                templateCode:'SCRWD',
+                                data:ret.data,
+                                list:ret.list
+                            };
+                            Printing.api.printTemplate(options);
+                            return false;
+                        }, error: function (e) {
+                            Backend.api.toastr.error(e.message);
+                        }
+                    });	 
+       					 },
+        					function(index){
+           		 			layer.close(index);
+           		 	
+        					 }
+			   			);
+                  }
+                  //打印单据
+                  //Fast.api.open('product/product/printingone?product_id='+data.product_id,'打印标签',{}); 	
+                 
+                  //刷新表格
+   				   $("#table").bootstrapTable('refresh');
+   				   }, function(data, ret){
+  						Toastr.success("失败");
+				   	}, function(success, error){
+
+					//bindevent的第三个参数为提交前的回调
+					//如果我们需要在表单提交前做一些数据处理，则可以在此方法处理
+					//注意如果我们需要阻止表单，可以在此使用return false;即可
+					//如果我们处理完成需要再次提交表单则可以使用submit提交,如下
+					//Form.api.submit(this, success, error);
+					//return false;
+                });
             }
         }
     };

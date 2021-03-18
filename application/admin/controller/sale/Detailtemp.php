@@ -332,7 +332,7 @@ class Detailtemp extends Backend
                     		->where('order_id',$params['order_id'])
                     		->update($params);
                 if ($result !== false) {
-                    $this->success('已暂存！',null,$params['order_id']);
+                    $this->success('已暂存！',null,null);
                 } else {
                     $this->error(__('No rows were updated'));
                 }
@@ -363,10 +363,10 @@ class Detailtemp extends Backend
 				$params['company_id'] = $this->auth->company_id;
 				$result = $main->save($params);	 
             Db::commit();
-            $order_id =$main->order_id;//产品库产品ID	
+            $params['order_id'] =$main->order_id;//产品库产品ID	
             if ($result) {
                         //$this->success();
-                        $this->success('新建单据',null,$order_id);
+                        $this->success('新建单据',null,$params);
                     } else {
                         $this->error(__('No rows were delete'));
                     }
@@ -463,7 +463,7 @@ class Detailtemp extends Backend
            $result = false; 
        	  $result = $order_main->save($info); 
            $order_id =$order_main->order_id;//获取保存后的主表ID，作为关联字段，同步需要要保存到子表中
-           $order_code =$order_main->order_code;//order_code
+           $params['order_code'] =$order_main->order_code;//order_code
            //保存子表至草稿
            $detail_temp = $this->model
            		->where($where)
@@ -508,7 +508,7 @@ class Detailtemp extends Backend
           	
  
         if ($result !== false) {
-            $this->success($order_code,null,$order_code);
+            $this->success($params['order_code'],null,$params);
          } else {
             $this->error(__('No rows were updated'));
          }
@@ -517,6 +517,184 @@ class Detailtemp extends Backend
            //     }
             }  
         }
+    }
+    /**
+     * 保存审核
+     */
+    public function verify()
+    {
+    	 //定义模型
+        $order_main_temp = new sale\Maintemp();
+        $order_main = new sale\Ordermain();
+        $order_detail = new sale\Orderdetail();
+        
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a");
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+                $params['order_datetime'] = strtotime($params['order_datetime']) ? strtotime($params['order_datetime']) : 0;
+                $result = false;
+				    $result = $order_main_temp
+                    		->update($params);//更新接单日期时间
+              
+          
+        list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+        $main_temp = $order_main_temp
+        		->where($where)
+        		->where(['order_operator'=>$this->auth->nickname])
+        		->find();
+        Db::startTrans();
+        	$info = [];
+        	//确定单号
+        	if($params['order_code']=='') {//如果保存的数据中不包含单号，则按规则新建单号
+        		$main = $order_main
+       	  	  ->where('order_datetime','between time',[date('Y-m-d 00:00:01'),date('Y-m-d 23:59:59')])
+        	 	  ->where('company_id',$this->auth->company_id)
+      	 	  ->order('order_code','desc')
+      	     ->limit(1)
+      	     ->select();
+       	 	 if(count($main)>0) {
+    	    	   $item = $main[0];
+    	   	   $code = '0000'.(substr($item['order_code'],11,4)+1);
+     	    	   $code = substr($code,strlen($code)-4,4);
+      	  	   $info['order_code'] = 'JD-'.date('Ymd').$code;
+      	 	  } else {
+      	   	$info['order_code'] = 'JD-'.date('Ymd').'0001';
+     	   	  }
+      	  	}else {//如果保存的数据中包含单号，说明是已经保存的草稿
+         	$info['order_code'] = $params['order_code'];
+         	//删除原草稿，并重建
+         	$order_main
+        		->where($where)
+        		->where(['order_code'=>$params['order_code']])
+        		->delete();
+        		$order_detail
+        		->where($where)
+        		->where(['detail_order_code'=>$params['order_code']])
+        		->delete();
+     		 }
+           //保存主表到草稿
+          
+           $info['order_datetime'] =time();
+           $info['order_delivery_date'] = $main_temp['order_delivery_date'];
+           $info['order_custom_id'] = $main_temp['order_custom_id'];
+           $info['order_custom_name'] = $main_temp['order_custom_name'];
+           $info['order_custom_address'] = $main_temp['order_custom_address'];
+           $info['order_custom_tel'] = $main_temp['order_custom_tel'];
+           $info['order_custom_contact'] = $main_temp['order_custom_contact'];
+           $info['order_custom_discount'] = $main_temp['order_custom_discount'];
+           $info['order_number_total'] = $main_temp['order_number_total'];
+           
+           $info['order_area_total'] = $main_temp['order_area_total'];
+           $info['order_length_total'] = $main_temp['order_length_total'];
+           $info['order_amount_total'] = $main_temp['order_amount_total'];
+           $info['order_hole_total'] = $main_temp['order_hole_total'];
+           $info['order_hole_amount_total'] = $main_temp['order_hole_amount_total'];
+           $info['order_edging_amount_total'] = $main_temp['order_edging_amount_total'];
+           $info['order_urgent_amount_total'] = $main_temp['order_urgent_amount_total'];
+           $info['order_other_amount_total'] = $main_temp['order_other_amount_total'];
+           $info['order_total_amount_total'] = $main_temp['order_number_total'];
+           $info['order_receiver'] = $main_temp['order_receiver'];
+           $info['order_saleman'] = $main_temp['order_saleman'];
+           $info['order_operator'] = $main_temp['order_operator'];
+           $info['order_checker'] = $main_temp['order_checker'];
+           $info['order_dispatcher'] = $main_temp['order_dispatcher'];
+           $info['order_freight_type'] = $main_temp['order_freight_type'];
+           $info['order_isdelivery'] = $main_temp['order_isdelivery'];
+           $info['order_remark'] = $main_temp['order_remark'];
+           $info['company_id'] = $this->auth->company_id;
+           $info['order_status'] = '1';//审核状态
+           //保存主表至草稿
+           $result = false; 
+       	  $result = $order_main->save($info); 
+           $order_id =$order_main->order_id;//获取保存后的主表ID，作为关联字段，同步需要要保存到子表中
+           $params['order_code'] =$order_main->order_code;//order_code
+           //保存子表至草稿
+           $detail_temp = $this->model
+           		->where($where)
+           		->where('order_id',$main_temp['order_id'])
+           		->select();
+           $details = [];
+           foreach($detail_temp as $k=>$v){
+           		$infod = [];
+           		$infod['order_id'] = $order_id;//关联主表的order_id
+           		$infod['detail_order_code'] = $info['order_code'];	
+           		$infod['detail_datetime'] = $v['detail_datetime'];
+           		$infod['detail_delivery_date'] = $v['detail_delivery_date'];
+           		$infod['detail_isurgent'] = $v['detail_isurgent'];	
+           		$infod['detail_isedging'] = $v['detail_isedging'];
+           		$infod['detail_no'] = $v['detail_no'];	
+           		$infod['detail_product_name'] = $v['detail_product_name'];	
+           		$infod['detail_product_specs'] = $v['detail_product_specs'];	
+           		$infod['detail_price'] = $v['detail_price'];	
+           		$infod['detail_discount'] = $v['detail_discount'];	
+           		$infod['detail_useposition'] = $v['detail_useposition'];	
+           		$infod['detail_long'] = $v['detail_long'];	
+           		$infod['detail_wide'] = $v['detail_wide'];
+           		$infod['detail_number'] = $v['detail_number'];	
+           		$infod['detail_area'] = $v['detail_area'];	
+           		$infod['detail_length'] = $v['detail_length'];		
+           		$infod['detail_amount'] = $v['detail_amount'];	
+           		$infod['detail_hole'] = $v['detail_hole'];	
+           		$infod['detail_hole_price'] = $v['detail_hole_price'];	
+           		$infod['detail_hole_amount'] = $v['detail_hole_amount'];	
+           		$infod['detail_edging_amount'] = $v['detail_edging_amount'];	
+           		$infod['detail_urgent_amount'] = $v['detail_urgent_amount'];	
+           		$infod['detail_other_amount'] = $v['detail_other_amount'];	
+           		$infod['detail_total_amount'] = $v['detail_total_amount'];	
+           		$infod['detail_remark'] = $v['detail_remark'];	
+           		$infod['detail_specification'] = $v['detail_specification'];	
+           		$infod['detail_status'] ='0';	
+           		$infod['company_id'] = $v['company_id'];	
+           		$details[] = $infod;
+           }
+          $resultd = $order_detail->saveAll($details);       	
+       	 Db::commit();
+          	
+ 
+        if ($result !== false) {
+            $this->success($params['order_code'],null,$params);
+         } else {
+            $this->error(__('No rows were updated'));
+         }
+         //} else {
+          //          $this->error(__('No rows were updated'));
+           //     }
+            }  
+        }
+    }
+    /**
+     * 打印
+     */
+    public function printing()
+    {
+    	 $order_main = new sale\Ordermain();//主表
+       $order_detail = new sale\Orderdetail();//子表
+       list($where, $sort, $order, $offset, $limit) = $this->buildparams();
+    	 $params = $this->request->param();//接收过滤条件
+    	 if(input('?order_code')) {
+    	 	//准备主表数据
+    	  $main_info = $order_main
+    	  	 ->where($where)
+    	    ->where('order_code',$params['order_code'])
+    	    ->find();
+    	  //$main_info['sale_date'] = date("Y-m-d",$main_info['sale_datetime']);
+    	    //准备子表数据
+    	  $detail_info = $order_detail
+    	    ->where($where)
+    	    ->where('detail_order_code',$params['order_code'])
+    	    ->select();
+    	  $info = [];
+    	  //$info['detail_specs'] ='合计';
+    	  //$info['detail_number'] = $main_info['sale_number'];
+    	  //$info['detail_weight'] = $main_info['sale_weight'];
+    	  //$info['detail_price'] = $main_info['sale_price'];
+    	  //$info['detail_amount'] = $main_info['sale_amount'];
+    	  //$detail_info [] = $info;   
+    	  
+        $result = array("data" => $main_info,"list"=>$detail_info);
+        return json($result);
+    	 }
     }
 
 
