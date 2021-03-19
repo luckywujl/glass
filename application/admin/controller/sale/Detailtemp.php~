@@ -786,7 +786,7 @@ class Detailtemp extends Backend
          					->where($where)
          					->select();
          $infod = [];
-         foreach((array)$detail as $k=>$v){
+         foreach($detail as $k=>$v){
          	$info =[];
          	$infod['order_id'] = $order_id_new;//关联主表的order_id
            	$infod['detail_order_code'] = $v['detail_order_code'];	
