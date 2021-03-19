@@ -782,11 +782,12 @@ class Detailtemp extends Backend
          $order_id_new =$order_main_temp->order_id;//主表order_id	  		
     
          //5、查询子表的数据（源数据子表）,并封装子表数据，再倒到临时子表中	
-         $detail = $order_detail
-         					->where($where)
+         $detail_info = $order_detail
+         					 ->where($where)
+         					->where(['order_id'=>$order_id])
          					->select();
          $infod = [];
-         foreach($detail as $k=>$v){
+         foreach($detail_info as $k=>$v){
          	$info =[];
          	$infod['order_id'] = $order_id_new;//关联主表的order_id
            	$infod['detail_order_code'] = $v['detail_order_code'];	

@@ -1,0 +1,41 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Companyinfo')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-companyinfo" class="form-control" name="row[companyinfo]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Companyinfo_tel')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-companyinfo_tel" class="form-control" name="row[companyinfo_tel]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Companyinfo_address')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-companyinfo_address" class="form-control" name="row[companyinfo_address]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Companyinfo_websit')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-companyinfo_websit" class="form-control" name="row[companyinfo_websit]" type="text">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('Company_remark')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            <input id="c-company_remark" class="form-control" name="row[company_remark]" type="text">
+        </div>
+    </div>
+    
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

@@ -4,7 +4,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
     	
         index: function () {
         	$(".btn-add").data("area",["90%","90%"]);
-        	$(".btn-edit").data("area",["90%","90%"]);
+        	$(".btn-edit").data("area",["30%","100%"]);
+        	$(".btn-edit").data("offset",[top.$(".tab-pane.active").scrollTop() + "px","0px"]);
         	$(".btn-edit").data("title",'修改');
         	$(".btn-del").data("success",function (e,data,ret) {
         		      //刷新表格
@@ -134,9 +135,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  				$("#c-order_edging_amount_total").val('');
         	  				$("#c-order_urgent_amount_total").val('');
         	  				$("#c-order_other_amount_total").val('');
-        	  				$("#c-order_total_amount_total").val('');							
+        	  				$("#c-order_total_amount_total").val('');		
+        	  				$("#c-order_remark").val('');						
         	  				$("table").bootstrapTable('refresh');//刷新表格
         	  				document.getElementById("new").setAttribute("disabled",true);
+        	  				document.getElementById("savedraft").removeAttribute("disabled");
+        	  				document.getElementById("saveverify").removeAttribute("disabled");
         	  				return false;
         	  			},function (data) {			
         	  		 		return false;
@@ -155,7 +159,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					  Layer.alert('请添加产品明细，再保存！');
 					  return false;
 					}else {
-						
+					document.getElementById("new").removeAttribute("disabled");
+        	  		document.getElementById("savedraft").setAttribute("disabled",true);
+        	  		document.getElementById("saveverify").setAttribute("disabled",true);	
 					$("#add-form").attr("action","sale/detailtemp/savedraft").submit();
 					}		
 				});
@@ -165,6 +171,9 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 					  Layer.alert('请添加产品明细，再保存！');
 					  return false;
 					}else {
+					document.getElementById("new").removeAttribute("disabled");
+        	  		document.getElementById("savedraft").setAttribute("disabled",true);
+        	  		document.getElementById("saveverify").setAttribute("disabled",true);
 					$("#add-form").attr("action","sale/detailtemp/verify").submit();
 					}		
 				});
@@ -197,26 +206,61 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
 			   	$(document).on("click",".btn-open",function () {
 					Fast.api.open('sale/detailtemp/opendraft','打开草稿',{
 						area:['90%', '90%'],
+					
 					 	callback:function (data) {
+					 		//先清空再填写
+					 		$("#c-order_id").val('');
+        	  				$("#c-order_code").val('');
+        	  				$("#c-order_saleman").val('');
+        	  				$("#c-order_saleman").selectPageRefresh();
+        	  				
+        	  				$("#c-order_custom_id").val('');
+        	  				$("#c-order_custom_id").selectPageRefresh();
+        	  				$("#c-order_custom_name").val('');
+        	  				$("#c-order_custom_contact").val('');
+        	  				$("#c-order_custom_tel").val('');
+        	  				$("#c-order_custom_address").val('');
+        	  				$("#c-order_custom_discount").val('');
+        	  				$("#c-order_number_total").val('');//件数归零
+        	  				$("#c-order_length_total").val('');
+        	  				$("#c-order_area_total").val('');
+        	  				$("#c-order_amount_total").val('');
+        	  				$("#c-order_hole_total").val('');
+        	  				$("#c-order_hole_amount_total").val('');
+        	  				$("#c-order_edging_amount_total").val('');
+        	  				$("#c-order_urgent_amount_total").val('');
+        	  				$("#c-order_other_amount_total").val('');
+        	  				$("#c-order_total_amount_total").val('');
+        	  				$("#c-order_remark").val('');		
+					 		
 					 		//无刷新更新页面，填写各项数据后刷新下面的表格
-					 		$("#c-sale_code").val(data.sale_code);
-					 		//$("#c-sale_datetime").val(data.sale_datetime);
-					 		var myDate = new Date(data.sale_datetime*1000);
-  		    				$("#c-sale_datetime").val(myDate.getFullYear()+'-'+(myDate.getMonth()+1)+'-'+myDate.getDate()+" "+myDate.getHours()+':'+myDate.getMinutes()+':'+myDate.getSeconds());
-							$("#c-sale_custom_name").val(data.sale_custom_name);
-							$("#c-sale_custom_id").val(data.sale_custom_id);
-							$("#c-sale_custom_id").selectPageRefresh();
-							$("#c-sale_custom_contact").val(data.sale_custom_contact);
-							$("#c-sale_custom_address").val(data.sale_custom_address);
-							$("#c-sale_custom_tel").val(data.sale_custom_tel);
-							$("#c-sale_number").val(data.sale_number);
-							$("#c-sale_weight").val(data.sale_weight);
-							$("#c-sale_price").val(data.sale_price);
-							$("#c-sale_amount").val(data.sale_amount);
-							$("#c-sale_person").val(data.sale_person);
-							$("#c-sale_person").selectPageRefresh();
-							$("#c-sale_remark").val(data.sale_remark);
+					   	$("#c-order_id").val(data['order_id']);
+        	  				$("#c-order_code").val(data['order_code']);
+        	  				$("#c-order_saleman").val(data['order_saleman']);
+        	  				$("#c-order_saleman").selectPageRefresh();
+        	  				
+        	  				$("#c-order_custom_id").val(data['order_custom_id']);
+        	  				$("#c-order_custom_id").selectPageRefresh();
+        	  				$("#c-order_custom_name").val(data['order_custom_name']);
+        	  				$("#c-order_custom_contact").val(data['order_custom_contact']);
+        	  				$("#c-order_custom_tel").val(data['order_custom_tel']);
+        	  				$("#c-order_custom_address").val(data['order_custom_address']);
+        	  				$("#c-order_custom_discount").val(data['order_custom_discount']);
+        	  				$("#c-order_number_total").val(data['order_number_total']);//件数归零
+        	  				$("#c-order_length_total").val(data['order_length_total']);
+        	  				$("#c-order_area_total").val(data['order_area_total']);
+        	  				$("#c-order_amount_total").val(data['order_amount_total']);
+        	  				$("#c-order_hole_total").val(data['order_hole_total']);
+        	  				$("#c-order_hole_amount_total").val(data['order_hole_amount_total']);
+        	  				$("#c-order_edging_amount_total").val(data['order_edging_amount_total']);
+        	  				$("#c-order_urgent_amount_total").val(data['order_urgent_amount_total']);
+        	  				$("#c-order_other_amount_total").val(data['order_other_amount_total']);
+        	  				$("#c-order_total_amount_total").val(data['order_total_amount_total']);
+        	  				$("#c-order_remark").val(data['order_total_remark']);		
 					 		$("table").bootstrapTable('refresh');//刷新表格
+					 		document.getElementById("new").removeAttribute("disabled");
+        	  				document.getElementById("savedraft").removeAttribute("disabled");
+        	  				document.getElementById("saveverify").removeAttribute("disabled");
 					 		//alert(data.sale_custom_name);
 				   	}
 					});
@@ -556,9 +600,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form','printing','selectpage
         	  		 		url:'sale/detailtemp/select?order_id='+id,
         	  				data:{order_id:id}
         	  				},function (data,ret) {
+        	  						
         	  					Fast.api.close(data);
         	  					//对总表进行汇总，求总件数，总重量，总金额，倒算单价
-        	  					$("table").bootstrapTable('refresh');//刷新表格
+        	  					//$("table").bootstrapTable('refresh');//刷新表格
         	  					return false;
         	  				},function (data) {
         	  					$("table").bootstrapTable('refresh');//刷新表格

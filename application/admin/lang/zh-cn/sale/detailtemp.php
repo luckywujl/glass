@@ -74,5 +74,6 @@ return [
     'Order_status 2'        => '派单',
     'Order_status 3'        => '生产',
     'Order_status 4'        => '发货',
+    'Order_remark'        => '备注',
   
 ];

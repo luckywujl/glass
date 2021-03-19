@@ -782,12 +782,13 @@ class Detailtemp extends Backend
          $order_id_new =$order_main_temp->order_id;//主表order_id	  		
     
          //5、查询子表的数据（源数据子表）,并封装子表数据，再倒到临时子表中	
-         $detail = $order_detail
-         					->where($where)
+         $detail_info = $order_detail
+         					 ->where($where)
+         					->where(['order_id'=>$order_id])
          					->select();
-         $infod = [];
-         foreach((array)$detail as $k=>$v){
-         	$info =[];
+         $info = [];
+         foreach($detail_info as $k=>$v){
+         	$infod =[];
          	$infod['order_id'] = $order_id_new;//关联主表的order_id
            	$infod['detail_order_code'] = $v['detail_order_code'];	
            	$infod['detail_datetime'] = $v['detail_datetime'];
@@ -816,9 +817,9 @@ class Detailtemp extends Backend
            	$infod['detail_remark'] = $v['detail_remark'];	
            	$infod['detail_specification'] = $v['detail_specification'];	
            	$infod['company_id'] = $v['company_id'];	
-         	$infod[] = $info;    		
+         	$info[] = $infod;    		
          }
-         $result = $this->model->saveAll($infod);
+         $result = $this->model->saveAll($info);
          Db::commit();
          if($main) {
          	 $this->success($order_id,null,$main); 

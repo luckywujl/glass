@@ -39,9 +39,25 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
             Table.api.bindevent(table);
         },
         add: function () {
+        	$("form[role=form]").on("keydown",function(e){
+                if (e.keyCode==13) {
+                    if (e.target.nodeName!=="TEXTAREA") {
+                        //此处添加你自己的需要在按下回车键之后要执行的代码
+                        return false;
+                    }
+                }
+            });
             Controller.api.bindevent();
         },
         edit: function () {
+        	$("form[role=form]").on("keydown",function(e){
+                if (e.keyCode==13) {
+                    if (e.target.nodeName!=="TEXTAREA") {
+                        //此处添加你自己的需要在按下回车键之后要执行的代码
+                        return false;
+                    }
+                }
+            });
             Controller.api.bindevent();
         },
         api: {

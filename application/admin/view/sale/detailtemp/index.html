@@ -106,7 +106,10 @@
         </div>
 	 </div>
     <div class="form-group">
-        
+        <label class="control-label col-xs-12 col-sm-1">{:__('Order_remark')}:</label>
+        <div class="col-xs-12 col-sm-5">
+            <input id="c-order_remark" class="form-control" name="row[order_remark]" type="text" value="{$row.order_remark|htmlentities}">
+        </div>
         
         <label class="control-label col-xs-12 col-sm-1">{:__('Order_freight_type')}:</label>
         <div class="col-xs-12 col-sm-2">
@@ -125,13 +128,15 @@
             {/foreach}
             </div>              
         </div> 
+    </div>
+    <div class="form-group">
        <label class="control-label col-xs-12 col-sm-1"></label>
         <div class="col-xs-12 col-sm-5">
             <button type="button" id="new"  class="btn btn-info btn-embossed btn-new">{:__('新建')}</button>
             <button type="button" class="btn btn-success btn-embossed btn-save">{:__('暂存')}</button>  
-            <button type="button" id="save"  class="btn btn-success btn-embossed btn-savedraft">{:__('保存草稿')}</button>
+            <button type="button" id="savedraft" disabled="true" class="btn btn-success btn-embossed btn-savedraft">{:__('保存草稿')}</button>
             <button type="button" class="btn btn-info btn-printing  btn-embossed">{:__('打印')}</button>
-            <button type="button" class="btn btn-success btn-embossed btn-verify">{:__('保存审核')}</button>
+            <button type="button" id="saveverify" disabled="true" class="btn btn-success btn-embossed btn-verify">{:__('保存审核')}</button>
             <button type="button" class="btn btn-info btn-embossed btn-open">{:__('打开草稿')}</button>
         </div>
     </div>
