@@ -17,10 +17,6 @@ class Companyinfo extends Backend
      * @var \app\admin\model\base\Companyinfo
      */
     protected $model = null;
-    protected $dataLimit = 'personal';
-    protected $dataLimitField = 'company_id';
-    protected $dataCreateField = null;
-    protected $searchFields = 'companyinfo';
 
     public function _initialize()
     {

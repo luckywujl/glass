@@ -670,6 +670,7 @@ class Detailtemp extends Backend
     {
     	 $order_main = new sale\Ordermain();//主表
        $order_detail = new sale\Orderdetail();//子表
+       $company = new base\Companyinfo();  //公司信息表
        list($where, $sort, $order, $offset, $limit) = $this->buildparams();
     	 $params = $this->request->param();//接收过滤条件
     	 if(input('?order_code')) {
@@ -678,6 +679,14 @@ class Detailtemp extends Backend
     	  	 ->where($where)
     	    ->where('order_code',$params['order_code'])
     	    ->find();
+    	  $company_info = $company
+    	  	 ->where($where)
+    	  	 ->find();
+    	  $main_info['company_name'] = $company_info['companyinfo'];
+    	  $main_info['companyinfo_tel'] = $company_info['companyinfo_tel'];
+    	  $main_info['companyinfo_address'] = $company_info['companyinfo_address'];
+    	  $main_info['companyinfo_websit'] = $company_info['companyinfo_websit'];
+    	  $main_info['companyinfo_remark'] =$company_info['company_remark'];
     	  //$main_info['sale_date'] = date("Y-m-d",$main_info['sale_datetime']);
     	    //准备子表数据
     	  $detail_info = $order_detail
