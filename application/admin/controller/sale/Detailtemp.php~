@@ -682,10 +682,11 @@ class Detailtemp extends Backend
     	  $company_info = $company
     	  	 ->where($where)
     	  	 ->find();
+    	  $main_info['order_date'] = date("Y-m-d",$main_info['order_datetime']);
     	  $main_info['company_name'] = $company_info['companyinfo'];
     	  $main_info['companyinfo_tel'] = $company_info['companyinfo_tel'];
     	  $main_info['companyinfo_address'] = $company_info['companyinfo_address'];
-    	  $main_info['companyinfo_website'] = $company_info['companyinfo_website'];
+    	  $main_info['companyinfo_websit'] = $company_info['companyinfo_websit'];
     	  $main_info['companyinfo_remark'] =$company_info['company_remark'];
     	  //$main_info['sale_date'] = date("Y-m-d",$main_info['sale_datetime']);
     	    //准备子表数据
@@ -693,6 +694,19 @@ class Detailtemp extends Backend
     	    ->where($where)
     	    ->where('detail_order_code',$params['order_code'])
     	    ->select();
+    	  foreach($detail_info as $k=>$v){
+    	  	if($v['detail_isurgent']) {
+    	  		$v['detail_isurgent'] = '加急';
+    	  	} else {
+    	  		$v['detail_isurgent'] = '否';
+    	  	}
+    	  	if($v['detail_isedging']) {
+    	  		$v['detail_isedging'] = '异磨';
+    	  	} else {
+    	  		$v['detail_isedging'] = '否';
+    	  	}
+    	  	
+    	  }
     	  $info = [];
     	  //$info['detail_specs'] ='合计';
     	  //$info['detail_number'] = $main_info['sale_number'];

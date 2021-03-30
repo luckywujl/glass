@@ -430,7 +430,7 @@ class Detailtemp extends Backend
      		 }
            //保存主表到草稿
           
-           $info['order_datetime'] =time();
+           $info['order_datetime'] =$main_temp['order_datetime'];
            $info['order_delivery_date'] = $main_temp['order_delivery_date'];
            $info['order_custom_id'] = $main_temp['order_custom_id'];
            $info['order_custom_name'] = $main_temp['order_custom_name'];
@@ -575,7 +575,7 @@ class Detailtemp extends Backend
      		 }
            //保存主表到草稿
           
-           $info['order_datetime'] =time();
+           $info['order_datetime'] =$main_temp['order_datetime'];
            $info['order_delivery_date'] = $main_temp['order_delivery_date'];
            $info['order_custom_id'] = $main_temp['order_custom_id'];
            $info['order_custom_name'] = $main_temp['order_custom_name'];
@@ -682,6 +682,7 @@ class Detailtemp extends Backend
     	  $company_info = $company
     	  	 ->where($where)
     	  	 ->find();
+    	  $main_info['order_date'] = date("Y-m-d",$main_info['order_datetime']);
     	  $main_info['company_name'] = $company_info['companyinfo'];
     	  $main_info['companyinfo_tel'] = $company_info['companyinfo_tel'];
     	  $main_info['companyinfo_address'] = $company_info['companyinfo_address'];
@@ -693,6 +694,19 @@ class Detailtemp extends Backend
     	    ->where($where)
     	    ->where('detail_order_code',$params['order_code'])
     	    ->select();
+    	  foreach($detail_info as $k=>$v){
+    	  	if($v['detail_isurgent']) {
+    	  		$v['detail_isurgent'] = '加急';
+    	  	} else {
+    	  		$v['detail_isurgent'] = '否';
+    	  	}
+    	  	if($v['detail_isedging']) {
+    	  		$v['detail_isedging'] = '异磨';
+    	  	} else {
+    	  		$v['detail_isedging'] = '否';
+    	  	}
+    	  	
+    	  }
     	  $info = [];
     	  //$info['detail_specs'] ='合计';
     	  //$info['detail_number'] = $main_info['sale_number'];
