@@ -696,24 +696,28 @@ class Detailtemp extends Backend
     	    ->select();
     	  foreach($detail_info as $k=>$v){
     	  	if($v['detail_isurgent']) {
-    	  		$v['detail_isurgent'] = '加急';
+    	  		$v['detail_isurgent'] = '√';
     	  	} else {
-    	  		$v['detail_isurgent'] = '否';
+    	  		$v['detail_isurgent'] = '';
     	  	}
     	  	if($v['detail_isedging']) {
-    	  		$v['detail_isedging'] = '异磨';
+    	  		$v['detail_isedging'] = '√';
     	  	} else {
-    	  		$v['detail_isedging'] = '否';
+    	  		$v['detail_isedging'] = '';
     	  	}
     	  	
     	  }
     	  $info = [];
-    	  //$info['detail_specs'] ='合计';
-    	  //$info['detail_number'] = $main_info['sale_number'];
-    	  //$info['detail_weight'] = $main_info['sale_weight'];
-    	  //$info['detail_price'] = $main_info['sale_price'];
-    	  //$info['detail_amount'] = $main_info['sale_amount'];
-    	  //$detail_info [] = $info;   
+    	  $info['detail_product_name'] ='合计：';
+    	  $info['detail_product_specs'] ='-';
+    	  $info['detail_long'] ='-';
+    	  $info['detail_wide'] ='-';
+    	  $info['detail_useposition'] ='-';
+    	  $info['detail_number'] = $main_info['order_number_total'];
+    	  $info['detail_area'] = $main_info['order_area_total'];
+    	  $info['detail_hole'] = $main_info['order_hole_total'];
+    	  
+    	  $detail_info [] = $info;   
     	  
         $result = array("data" => $main_info,"list"=>$detail_info);
         return json($result);

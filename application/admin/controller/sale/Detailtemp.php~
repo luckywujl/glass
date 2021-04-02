@@ -430,7 +430,7 @@ class Detailtemp extends Backend
      		 }
            //保存主表到草稿
           
-           $info['order_datetime'] =time();
+           $info['order_datetime'] =$main_temp['order_datetime'];
            $info['order_delivery_date'] = $main_temp['order_delivery_date'];
            $info['order_custom_id'] = $main_temp['order_custom_id'];
            $info['order_custom_name'] = $main_temp['order_custom_name'];
@@ -575,7 +575,7 @@ class Detailtemp extends Backend
      		 }
            //保存主表到草稿
           
-           $info['order_datetime'] =time();
+           $info['order_datetime'] =$main_temp['order_datetime'];
            $info['order_delivery_date'] = $main_temp['order_delivery_date'];
            $info['order_custom_id'] = $main_temp['order_custom_id'];
            $info['order_custom_name'] = $main_temp['order_custom_name'];
@@ -696,24 +696,24 @@ class Detailtemp extends Backend
     	    ->select();
     	  foreach($detail_info as $k=>$v){
     	  	if($v['detail_isurgent']) {
-    	  		$v['detail_isurgent'] = '加急';
+    	  		$v['detail_isurgent'] = '√';
     	  	} else {
-    	  		$v['detail_isurgent'] = '否';
+    	  		$v['detail_isurgent'] = '';
     	  	}
     	  	if($v['detail_isedging']) {
-    	  		$v['detail_isedging'] = '异磨';
+    	  		$v['detail_isedging'] = '√';
     	  	} else {
-    	  		$v['detail_isedging'] = '否';
+    	  		$v['detail_isedging'] = '';
     	  	}
     	  	
     	  }
     	  $info = [];
-    	  //$info['detail_specs'] ='合计';
-    	  //$info['detail_number'] = $main_info['sale_number'];
+    	  $info['detail_useposition'] ='合计：';
+    	  $info['detail_number'] = $main_info['order_number_total'];
     	  //$info['detail_weight'] = $main_info['sale_weight'];
     	  //$info['detail_price'] = $main_info['sale_price'];
     	  //$info['detail_amount'] = $main_info['sale_amount'];
-    	  //$detail_info [] = $info;   
+    	  $detail_info [] = $info;   
     	  
         $result = array("data" => $main_info,"list"=>$detail_info);
         return json($result);
