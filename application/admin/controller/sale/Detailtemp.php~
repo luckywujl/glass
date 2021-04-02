@@ -499,6 +499,8 @@ class Detailtemp extends Backend
            		$infod['detail_total_amount'] = $v['detail_total_amount'];	
            		$infod['detail_remark'] = $v['detail_remark'];	
            		$infod['detail_specification'] = $v['detail_specification'];	
+           		$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           		$infod['detail_documents_info'] = $v['detail_documents_info'];	
            		$infod['detail_status'] ='0';	
            		$infod['company_id'] = $v['company_id'];	
            		$details[] = $infod;
@@ -644,6 +646,8 @@ class Detailtemp extends Backend
            		$infod['detail_total_amount'] = $v['detail_total_amount'];	
            		$infod['detail_remark'] = $v['detail_remark'];	
            		$infod['detail_specification'] = $v['detail_specification'];	
+           		$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           		$infod['detail_documents_info'] = $v['detail_documents_info'];	
            		$infod['detail_status'] ='0';	
            		$infod['company_id'] = $v['company_id'];	
            		$details[] = $infod;
@@ -708,11 +712,15 @@ class Detailtemp extends Backend
     	  	
     	  }
     	  $info = [];
-    	  $info['detail_useposition'] ='合计：';
+    	  $info['detail_product_name'] ='合计：';
+    	  $info['detail_product_specs'] ='-';
+    	  $info['detail_long'] ='-';
+    	  $info['detail_wide'] ='-';
+    	  $info['detail_useposition'] ='-';
     	  $info['detail_number'] = $main_info['order_number_total'];
-    	  //$info['detail_weight'] = $main_info['sale_weight'];
-    	  //$info['detail_price'] = $main_info['sale_price'];
-    	  //$info['detail_amount'] = $main_info['sale_amount'];
+    	  $info['detail_area'] = $main_info['order_area_total'];
+    	  $info['detail_hole'] = $main_info['order_hole_total'];
+    	  
     	  $detail_info [] = $info;   
     	  
         $result = array("data" => $main_info,"list"=>$detail_info);
@@ -839,6 +847,8 @@ class Detailtemp extends Backend
            	$infod['detail_total_amount'] = $v['detail_total_amount'];	
            	$infod['detail_remark'] = $v['detail_remark'];	
            	$infod['detail_specification'] = $v['detail_specification'];	
+           	$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           	$infod['detail_documents_info'] = $v['detail_documents_info'];	
            	$infod['company_id'] = $v['company_id'];	
          	$info[] = $infod;    		
          }

@@ -1,4 +1,4 @@
-<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="" @submit.native.prevent>
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="" >
 
     <div class="col-xs-12 col-sm-8" hidden="hidden">
         <input id="c-order_id"   class="form-control " name="row[order_id]" type="text" value="{$row.order_id|htmlentities}">
@@ -156,7 +156,37 @@
 
 		 </div>
     </div>
-    
+    <div class="form-group row">
+                        <label class="control-label col-xs-12 col-sm-2">{:__('相关文档')}:</label>
+                        <div class="col-xs-12 col-sm-8">
+                            <div class="input-group">
+                                <input id="c-detail_documents_files"  class="form-control" size="50" name="row[detail_documents_files]" type="text" value="/uploads/20210402/2e2b656725e591271de4e818a29091c0.jpg">
+                                <div class="input-group-addon no-border no-padding">
+                                    <span><button type="button" id="plupload-files" class="btn btn-danger plupload" data-input-id="c-detail_documents_files" data-mimetype="*" data-multiple="true" data-preview-id="p-files"><i class="fa fa-upload"></i> {:__('Upload')}</button></span>
+                                    <span><button type="button" id="fachoose-files" class="btn btn-primary fachoose" data-input-id="c-detail_documents_files" data-mimetype="*" data-multiple="true"><i class="fa fa-list"></i> {:__('Choose')}</button></span>
+                                </div>
+                                <span class="msg-box n-right" for="c-detail_documents_files"></span>
+                            </div>
+
+                            <!--ul需要添加 data-template和data-name属性，并一一对应且唯一 -->
+                            <ul class="row list-inline plupload-preview" id="p-files" data-template="introtpl" data-name="row[detail_documents_info]"></ul>
+
+                            <!--请注意 ul和textarea间不能存在其它任何元素，实际开发中textarea应该添加个hidden进行隐藏-->
+                            <textarea id="c-detail_documents_info" name="row[detail_documents_info]" class="form-control" style="margin-top:5px;">["图纸"]</textarea>
+
+                            <!--这里自定义图片预览的模板 开始-->
+                            <script type="text/html" id="introtpl">
+                                <li class="col-xs-3">
+                                    <a href="<%=fullurl%>" data-url="<%=url%>" target="_blank" class="thumbnail">
+                                        <img src="<%=fullurl%>" class="img-responsive">
+                                    </a>
+                                    <input type="text" name="row[detail_documents_info][<%=index%>]" class="form-control" placeholder="请输入文件描述" value="<%=value?value:''%>"/>
+                                    <a href="javascript:;" class="btn btn-danger btn-xs btn-trash"><i class="fa fa-trash"></i></a>
+                                </li>
+                            </script>
+                            <!--这里自定义图片预览的模板 结束-->
+                        </div>
+                    </div>
     
     <div class="form-group layer-footer">
         <label class="control-label col-xs-12 col-sm-4"></label>

@@ -499,6 +499,8 @@ class Detailtemp extends Backend
            		$infod['detail_total_amount'] = $v['detail_total_amount'];	
            		$infod['detail_remark'] = $v['detail_remark'];	
            		$infod['detail_specification'] = $v['detail_specification'];	
+           		$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           		$infod['detail_documents_info'] = $v['detail_documents_info'];	
            		$infod['detail_status'] ='0';	
            		$infod['company_id'] = $v['company_id'];	
            		$details[] = $infod;
@@ -644,6 +646,8 @@ class Detailtemp extends Backend
            		$infod['detail_total_amount'] = $v['detail_total_amount'];	
            		$infod['detail_remark'] = $v['detail_remark'];	
            		$infod['detail_specification'] = $v['detail_specification'];	
+           		$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           		$infod['detail_documents_info'] = $v['detail_documents_info'];	
            		$infod['detail_status'] ='0';	
            		$infod['company_id'] = $v['company_id'];	
            		$details[] = $infod;
@@ -843,6 +847,8 @@ class Detailtemp extends Backend
            	$infod['detail_total_amount'] = $v['detail_total_amount'];	
            	$infod['detail_remark'] = $v['detail_remark'];	
            	$infod['detail_specification'] = $v['detail_specification'];	
+           	$infod['detail_documents_files'] = $v['detail_documents_files'];	
+           	$infod['detail_documents_info'] = $v['detail_documents_info'];	
            	$infod['company_id'] = $v['company_id'];	
          	$info[] = $infod;    		
          }
